@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Proxy Form - Villages at Greenbriar HOA</title>
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  max-width: 600px; margin: 0 auto; padding: 1rem;
+  font-size: 18px; line-height: 1.7; color: #1a1a1a;
+}
+
+/* ── Page title ── */
+.page-title {
+  text-align: center; margin-bottom: 1.2rem;
+}
+.page-title h1 {
+  font-size: 22px; font-weight: 700; margin-bottom: .2rem;
+}
+.page-title p {
+  font-size: 16px; color: #666; margin: 0;
+}
+
+/* ── Primary CTA ── */
+.cta-card {
+  background: #f5f6f8; border-radius: 12px; padding: 1.4rem;
+  margin-bottom: 1.5rem; text-align: center;
+}
+.cta-card h2 {
+  font-size: 20px; font-weight: 700; margin-bottom: .6rem;
+}
+.cta-btn {
+  display: block; width: 100%; padding: 1rem;
+  background: #3a7d5c; color: #fff; border: none; border-radius: 10px;
+  font-size: 19px; font-weight: 700; cursor: pointer;
+  font-family: inherit; text-decoration: none; text-align: center;
+  margin-bottom: .8rem; box-sizing: border-box;
+}
+.cta-btn:hover { background: #2e6349; }
+.cta-steps {
+  list-style: none; padding: 0; margin: 0;
+}
+.cta-steps li {
+  font-size: 16px; color: #444; padding: .3rem 0 .3rem 2rem;
+  position: relative; text-align: left;
+}
+.cta-steps li::before {
+  content: attr(data-step);
+  position: absolute; left: 0; top: .35rem;
+  width: 1.3rem; height: 1.3rem; border-radius: 50%;
+  background: #3a7d5c; color: #fff; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.cta-steps li strong { color: #1a1a1a; }
+.cta-note {
+  font-size: 14px; color: #888; margin-top: .6rem;
+}
+
+/* ── OR divider ── */
+.or-bar {
+  text-align: center; color: #aaa; font-size: 14px; font-weight: 600;
+  margin: .8rem 0; letter-spacing: 2px;
+}
+
+/* ── Alternative options ── */
+.alt-section {
+  margin-bottom: 1.5rem;
+}
+.alt-section h3 {
+  font-size: 17px; font-weight: 700; margin-bottom: .5rem;
+  color: #555;
+}
+.option-card {
+  background: #fff; border-radius: 10px; padding: 1rem 1.1rem;
+  margin-bottom: .8rem; border: 1px solid #e8e8e8;
+}
+.option-header {
+  display: flex; align-items: center; gap: .6rem; margin-bottom: .5rem;
+}
+.option-icon {
+  flex-shrink: 0; width: 2.4rem; height: 2.4rem;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.option-icon svg { width: 1.2rem; height: 1.2rem; }
+.icon-camera { background: #e3f2fd; }
+.icon-camera svg { fill: #1565c0; }
+.icon-door { background: #fff3e0; }
+.icon-door svg { fill: #e65100; }
+.option-label {
+  font-size: 16px; font-weight: 700;
+}
+.option-steps {
+  list-style: none; padding: 0; margin: 0;
+}
+.option-steps li {
+  font-size: 15px; color: #444; padding: .15rem 0 .15rem 1.8rem;
+  position: relative;
+}
+.option-steps li::before {
+  content: attr(data-step);
+  position: absolute; left: 0; top: .2rem;
+  width: 1.1rem; height: 1.1rem; border-radius: 50%;
+  background: #eef0f2; color: #555; font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.option-steps li strong { color: #1a1a1a; }
+
+/* ── Print section ── */
+.print-section {
+  border-top: 1px solid #e8e8e8; padding-top: 1rem; margin-top: .5rem;
+}
+.print-section h3 {
+  font-size: 16px; font-weight: 700; color: #555; margin-bottom: .5rem;
+}
+.print-proxy {
+  font-family: Georgia, "Times New Roman", serif;
+  display: none;
+}
+.print-proxy.visible { display: block; }
+.print-proxy .proxy-header {
+  text-align: center; font-weight: bold; font-size: 18px;
+  margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 1px;
+}
+.print-proxy .proxy-header span {
+  display: block; font-size: 15px; font-weight: normal; margin-top: .3rem;
+}
+.print-proxy p { margin-bottom: .8rem; font-size: 16px; }
+.sig-line { border-bottom: 1px solid #000; height: 2rem; }
+.sig-label { font-size: 14px; margin-top: 4px; margin-bottom: 1.5rem; color: #555; }
+.sig-row { display: flex; justify-content: space-between; margin-top: 2rem; }
+.sig-col-wide { width: 55%; }
+.sig-col-narrow { width: 35%; }
+.toggle-btn {
+  display: block; width: 100%; padding: .7rem;
+  background: #2c3e50; color: #fff; border: none; border-radius: 10px;
+  font-size: 16px; font-weight: 600; cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.toggle-btn:hover { background: #1e2a38; }
+.print-btn {
+  display: block; width: 100%; padding: .7rem; margin-top: .8rem;
+  background: #2c3e50; color: #fff; border: none; border-radius: 10px;
+  font-size: 16px; font-weight: 600; cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.print-btn:hover { background: #1e2a38; }
+
+/* ── Print media ── */
+@media print {
+  .page-title, .cta-card, .or-bar, .alt-section, .toggle-btn,
+  .print-btn, .print-section h3 { display: none !important; }
+  body { padding: 0; margin: 0; max-width: none; }
+  .print-proxy { display: block !important; font-size: 11pt; }
+  .print-proxy .proxy-header { font-size: 13pt; margin-bottom: 1rem; }
+  .print-proxy p { font-size: 11pt; margin-bottom: .5rem; }
+  .sig-label { margin-bottom: 1rem; }
+  .sig-row { margin-top: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Page title ── -->
+<div class="page-title">
+  <h1>Proxy Vote Form</h1>
+  <p>Villages at Greenbriar HOA</p>
+  <p style="font-size:14px; margin-top:.5rem;"><a href="index.html" style="color:#3b6fa0;">Want to see the full findings first? ourgreenbriar.org</a></p>
+</div>
+
+<!-- ── Primary: Google Form ── -->
+<div class="cta-card">
+  <h2>Sign your proxy online</h2>
+  <a class="cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScOOVwTdmkuw42kLF8LKWa3ne5kWMHT63m-5labZVGKogeIcg/viewform" target="_blank">Sign Your Proxy</a>
+  <ol class="cta-steps">
+    <li data-step="1">Tap the green button</li>
+    <li data-step="2">Type your <strong>name</strong>, <strong>address</strong>, and <strong>phone number</strong></li>
+    <li data-step="3">Check the box and tap <strong>Submit</strong></li>
+  </ol>
+  <div class="cta-note">That's it. Takes 30 seconds. Legally valid under Oklahoma law (18 O.S. &sect;1060).</div>
+</div>
+
+<!-- ── Alternatives ── -->
+<div class="or-bar">PREFER PAPER?</div>
+
+<div class="alt-section">
+  <div class="option-card">
+    <div class="option-header">
+      <div class="option-icon icon-camera">
+        <svg viewBox="0 0 24 24"><path d="M12 15.2a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z"/><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+      </div>
+      <div class="option-label">Sign the paper form, snap a photo</div>
+    </div>
+    <ol class="option-steps">
+      <li data-step="1">Sign the form below</li>
+      <li data-step="2">Take a <strong>photo</strong> with your phone</li>
+      <li data-step="3">Text it to <strong>405-441-7525</strong></li>
+    </ol>
+  </div>
+
+  <div class="option-card">
+    <div class="option-header">
+      <div class="option-icon icon-door">
+        <svg viewBox="0 0 24 24"><path d="M10 2v2H4v16h6v2H2V2h8zm9.5 10l-5-5v3H10v4h4.5v3l5-5z"/></svg>
+      </div>
+      <div class="option-label">Drop it off in person</div>
+    </div>
+    <ol class="option-steps">
+      <li data-step="1">Sign the form below</li>
+      <li data-step="2">Leave it at <strong>508 SW 121st Pl</strong> (Greg's door)</li>
+    </ol>
+  </div>
+
+  <!-- ── Printable proxy form ── -->
+  <div class="print-section">
+    <h3>Blank proxy form</h3>
+    <button class="toggle-btn" onclick="toggleForm()">Show Form</button>
+    <div class="print-proxy" id="proxyForm">
+      <div class="proxy-header">
+        Proxy Authorization<br>
+        <span>The Villages at Greenbriar HOA, Inc.</span>
+      </div>
+
+      <p>I, ________________________________________ , am an owner of property at</p>
+      <p>________________________________________ , Oklahoma City, OK 73170,</p>
+      <p>which is a lot in The Villages at Greenbriar HOA, Inc.</p>
+
+      <p style="margin-top:1.2rem;">I hereby appoint <strong>Greg Banks</strong> (508 SW 121st Pl) as my proxy to attend and vote on my behalf at any meeting of the members of The Villages at Greenbriar HOA, Inc., including any annual or special meeting, and any adjournment thereof.</p>
+
+      <p>This proxy is granted pursuant to 18 O.S. &sect;1060, which provides that members of an Oklahoma nonprofit corporation may vote by proxy.</p>
+
+      <p>This proxy shall remain in effect until revoked by me in writing. Showing up in person always overrides it.</p>
+
+      <div class="sig-row">
+        <div class="sig-col-wide">
+          <div class="sig-line"></div>
+          <div class="sig-label">Signature of Lot Owner</div>
+        </div>
+        <div class="sig-col-narrow">
+          <div class="sig-line"></div>
+          <div class="sig-label">Date</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sig-line" style="width:55%;"></div>
+        <div class="sig-label">Printed Name</div>
+      </div>
+
+      <div>
+        <div class="sig-line" style="width:55%;"></div>
+        <div class="sig-label">Phone or Email (optional, in case of questions)</div>
+      </div>
+
+      <button class="print-btn" onclick="window.print()">Print This Form</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleForm() {
+  var form = document.getElementById('proxyForm');
+  var btn = document.querySelector('.toggle-btn');
+  if (form.classList.contains('visible')) {
+    form.classList.remove('visible');
+    btn.textContent = 'Show Form';
+  } else {
+    form.classList.add('visible');
+    btn.textContent = 'Hide Form';
+  }
+}
+</script>
+
+</body>
+</html>

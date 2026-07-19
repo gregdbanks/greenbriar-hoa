@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Villages at Greenbriar HOA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #faf9f7; color: #1a1a1a; line-height: 1.7;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Header ── */
+.site-header {
+  background: linear-gradient(135deg, #232f3e 0%, #34495e 100%);
+  color: #f0f0f0; padding: 2.5rem 1.5rem; text-align: center;
+  border-bottom: 3px solid #3a7d5c;
+}
+.site-header svg { max-width: 420px; width: 100%; height: auto; margin: 0 auto; display: block; }
+.site-header .tagline {
+  font-size: 1.05rem; color: rgba(255,255,255,.85); font-weight: 400;
+  letter-spacing: .2px; margin-top: .6rem;
+}
+
+/* ── Container ── */
+.wrap {
+  max-width: 720px; margin: 0 auto; padding: 2.5rem 2rem 3.5rem;
+  background: #fff;
+}
+
+/* ── Intro ── */
+.intro {
+  padding: 2.5rem 0; border-bottom: 1px solid #e8e6e1; text-align: center;
+}
+.intro p {
+  font-size: 1.1rem; color: #333; line-height: 1.7; margin-bottom: .75rem;
+  max-width: 600px; margin-left: auto; margin-right: auto;
+}
+.intro .intro-vision { font-weight: 500; color: #2e6349; }
+.intro .intro-note { font-size: .9rem; color: #888; margin-top: .5rem; margin-bottom: 0; }
+
+/* ── Section Nav ── */
+.section-nav {
+  padding: 1.5rem 0; border-bottom: 1px solid #e8e6e1;
+  display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center;
+}
+.section-nav a {
+  display: inline-block; padding: .4rem 1rem; border-radius: 100px;
+  background: #f0f0ec; color: #333; text-decoration: none;
+  font-size: .9rem; font-weight: 500; transition: background .15s ease;
+}
+.section-nav a:hover { background: #e0ded8; }
+
+/* ── Sections ── */
+.section {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid #e8e6e1;
+}
+.section:last-child { border-bottom: none; }
+.section h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.6rem; font-weight: 700; margin-bottom: 1.2rem; color: #1a1a1a;
+  letter-spacing: -.01em;
+}
+.section h3 {
+  font-size: 1.1rem; font-weight: 600; margin-bottom: .5rem; color: #1a1a1a;
+  margin-top: 1.8rem;
+}
+.section h3:first-of-type { margin-top: 0; }
+.section p { font-size: 1rem; margin-bottom: .75rem; color: #333; }
+.section ul, .section ol { margin: .4rem 0 .8rem 1.3rem; font-size: 1rem; color: #333; }
+.section li { margin-bottom: .45rem; }
+.section.faq h3 { color: #2e6349; }
+
+/* ── Section body links ── */
+.section p a, .section li a { color: #3b6fa0; font-weight: 600; text-decoration: underline; }
+.highlight a, .highlight p a { color: inherit; font-weight: 700; text-decoration: underline; }
+
+/* ── Vote tracker ── */
+.vote-tracker {
+  padding: 2.5rem 0; text-align: center;
+  border-bottom: 1px solid #e8e6e1;
+}
+.vote-tracker h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.6rem; font-weight: 700; margin-bottom: .8rem; color: #1a1a1a;
+}
+.vote-label {
+  font-size: 1rem; font-weight: 400; margin-bottom: .8rem; color: #555;
+}
+.vote-label .count { font-weight: 700; font-size: 1.5rem; color: #1a1a1a; }
+.progress-wrap {
+  background: #eee9e1; border-radius: 100px; height: 28px;
+  overflow: hidden; margin-bottom: .8rem;
+}
+.progress-bar {
+  height: 100%; background: linear-gradient(90deg, #3a7d5c, #4a9e72);
+  border-radius: 100px; transition: width .4s ease;
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 10px; min-width: 2.5rem;
+}
+.progress-text {
+  font-size: .8rem; font-weight: 700; color: #fff;
+}
+.vote-remaining {
+  font-size: .9rem; color: #888; margin-top: .2rem;
+}
+
+/* ── Highlight box ── */
+.highlight {
+  padding: 1rem 1.25rem; border-radius: 6px; margin-bottom: .8rem;
+  font-size: .95rem; line-height: 1.6;
+  border-left: 3px solid;
+}
+.h-red { background: #fef5f5; border-color: #d94848; color: #5c1a1a; }
+.h-amber { background: #fef9ee; border-color: #d4a017; color: #5a4200; }
+.h-green { background: #f0f9f2; border-color: #3a9e5c; color: #1e4a2c; }
+.h-blue { background: #f0f6fc; border-color: #3b82c4; color: #1c3f5e; }
+.highlight > strong:first-child { display: block; margin-bottom: .25rem; font-size: 1rem; }
+.highlight p { margin-bottom: .5rem; color: inherit; font-size: inherit; }
+.highlight p:last-child { margin-bottom: 0; }
+
+/* ── CTA buttons ── */
+.cta-btn {
+  display: inline-block; padding: .8rem 2rem; border-radius: 6px;
+  background: #3a7d5c; color: #fff; text-decoration: none;
+  font-size: .95rem; font-weight: 600; margin-top: .4rem;
+  transition: background .15s ease;
+}
+.cta-btn:hover { background: #2e6349; }
+
+.cta-primary {
+  display: inline-block; padding: 1rem 2.5rem; border-radius: 6px;
+  background: #3a7d5c; color: #fff; text-decoration: none;
+  font-size: 1.1rem; font-weight: 700; margin-top: .8rem;
+  transition: background .15s ease;
+}
+.cta-primary:hover { background: #2e6349; }
+
+.cta-muted {
+  display: inline-block; padding: .8rem 2rem; border-radius: 6px;
+  background: #fff; color: #3a7d5c; border: 2px solid #3a7d5c;
+  text-decoration: none; font-size: .95rem; font-weight: 600;
+  margin-top: .4rem; transition: background .15s ease, color .15s ease;
+}
+.cta-muted:hover { background: #f0f9f2; }
+
+/* ── Contact block ── */
+.contact-block {
+  margin-top: .8rem; padding: 1rem 1.25rem; background: #f8f7f5;
+  border-radius: 6px; font-size: .95rem; color: #333;
+}
+.contact-block strong { color: #1a1a1a; }
+.contact-block a { color: #3b6fa0; text-decoration: none; }
+.contact-block a:hover { text-decoration: underline; }
+
+/* ── Document links ── */
+.doc-list { display: flex; flex-direction: column; gap: .6rem; margin-top: .6rem; }
+.doc-link {
+  display: flex; align-items: center; gap: .8rem;
+  padding: .9rem 1rem; background: #f8f7f5; border-radius: 6px;
+  text-decoration: none; color: inherit;
+  transition: background .15s ease;
+}
+.doc-link:hover { background: #eee9e1; }
+.doc-icon {
+  flex-shrink: 0; width: 2.6rem; height: 2.6rem;
+  background: #d94848; color: #fff; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .65rem; font-weight: 800; letter-spacing: .5px;
+}
+.doc-info { display: flex; flex-direction: column; min-width: 0; }
+.doc-title { font-size: .95rem; font-weight: 600; color: #1a1a1a; }
+.doc-desc { font-size: .85rem; color: #777; margin-top: .15rem; }
+
+/* ── Announcements ── */
+.announcement {
+  padding-bottom: .8rem; margin-bottom: .8rem;
+  border-bottom: 1px solid #e8e6e1;
+}
+.announcement:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.ann-date {
+  font-size: .82rem; font-weight: 600; color: #888;
+  text-transform: uppercase; letter-spacing: .5px; margin-bottom: .3rem;
+}
+.announcement p { font-size: .95rem; color: #333; margin-bottom: 0; }
+.email-signup {
+  margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid #e8e6e1;
+  text-align: center;
+}
+.email-signup p { font-size: .95rem; }
+.email-signup .cta-btn { display: block; text-align: center; }
+.signup-note { font-size: .85rem !important; color: #888 !important; margin-top: .4rem !important; }
+
+/* ── Resources grid ── */
+.resources-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: .8rem;
+}
+.resource-card {
+  padding: 1.4rem; background: #f8f7f5; border-radius: 6px; text-align: center;
+}
+.resource-card h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem; font-weight: 700; margin: 0 0 .5rem; color: #1a1a1a;
+}
+.resource-card p { font-size: .9rem; color: #555; margin-bottom: .7rem; }
+
+/* ── Back to top ── */
+.back-to-top {
+  position: fixed; bottom: 2rem; right: 2rem;
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  background: #3a7d5c; color: #fff; border: none; cursor: pointer;
+  font-size: 1.2rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+  z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.back-to-top.visible { opacity: 1; visibility: visible; }
+.back-to-top:hover { background: #2e6349; }
+
+/* ── Footer ── */
+.site-footer {
+  text-align: center; padding: 2rem 1rem; border-top: 1px solid #e8e6e1;
+  font-size: .85rem; color: #999; background: #fff;
+}
+.site-footer a { color: #777; text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+
+/* ── Focus styles ── */
+:focus-visible { outline: 2px solid #3a7d5c; outline-offset: 2px; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .site-header { padding: 2rem 1rem; }
+  .site-header svg { max-width: 300px; }
+  .wrap { padding: 1.5rem 1.1rem 2.5rem; }
+  .section { padding: 2rem 0; }
+  .resources-grid { grid-template-columns: 1fr; }
+  .cta-primary { display: block; width: 100%; text-align: center; }
+  .section-nav { gap: .4rem; }
+  .section-nav a { font-size: .82rem; padding: .35rem .8rem; }
+  .back-to-top { bottom: 1.5rem; right: 1.5rem; }
+}
+
+/* ── Print ── */
+@media print {
+  .site-header, .vote-tracker, .back-to-top, .section-nav, .email-signup { display: none; }
+  .cta-btn, .cta-primary, .cta-muted { display: none; }
+  body { background: #fff; color: #000; }
+  .wrap { max-width: 100%; padding: 0; }
+  .section, .intro { border-color: #ccc; }
+  .highlight { page-break-inside: avoid; }
+  a { color: #000; }
+  .doc-link { background: #fff; border: 1px solid #ccc; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="site-header">
+  <svg viewBox="0 0 420 62" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Villages at Greenbriar HOA">
+    <text x="210" y="24" text-anchor="middle" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif" font-size="13" font-weight="400" letter-spacing="5" text-transform="uppercase">VILLAGES AT GREENBRIAR</text>
+    <line x1="120" y1="34" x2="300" y2="34" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+    <text x="210" y="52" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="400" letter-spacing="3">HOMEOWNERS ASSOCIATION</text>
+  </svg>
+  <div class="tagline">Someone's spending your money. You deserve to know how.</div>
+</header>
+
+<div class="wrap">
+
+<!-- ═══ INTRO ═══ -->
+<div class="intro">
+  <p>Ian Rupert is the sole board member and president of our HOA, and he doesn't own a home here in his own name; he sold his property in 2017. He pays himself through his own company with our dues ($6,775 in just the first half of 2026, up from $2,800 in all of 2025), approved a $27,516 fence with no recorded vote and no competitive bids on record, and the HOA has produced no meeting minutes for the past two years and no budget in recent history.</p>
+  <p>Everything below comes from the HOA's own records and public Cleveland County property records, and each claim links to its source.</p>
+  <p class="intro-vision">The goal: annual meetings, a published budget, and dues that go back into our neighborhood.</p>
+  <a class="cta-primary" href="proxy.html">Sign Your Proxy</a>
+  <p class="intro-note">Already have the paper form? Return it to 508 SW 121st Pl.</p>
+</div>
+
+<!-- ═══ SECTION NAV ═══ -->
+<nav class="section-nav">
+  <a href="#findings">What We Found</a>
+  <a href="#records">Records</a>
+  <a href="#questions">Questions</a>
+  <a href="#help">How to Help</a>
+  <a href="#progress">Add Your Proxy</a>
+  <a href="#announcements">Updates</a>
+  <a href="#resources">Resources</a>
+</nav>
+
+<!-- ═══ WHAT WE FOUND ═══ -->
+<div class="section" id="findings">
+  <h2>What We Found</h2>
+  <p>A homeowner in this subdivision requested the HOA's <a href="bylaws-text.html#art-iv-3l">financial records, which every dues-paying member is entitled to</a>. Here is what those records revealed.</p>
+
+  <h3>Self-dealing contract</h3>
+  <p>The sole HOA board president, Ian Rupert, created a consulting company called Ian's Enterprise LLC and then hired that company, his own company, to work for the HOA at $100 an hour with a vague, open-ended scope of work and no end date. Our <a href="bylaws-text.html#art-iv-3r">bylaws limit all contracts to one year, terminable on 30 or 90 days notice</a>.</p>
+  <p>He signed both sides of the contract himself: once as the owner of his company, and once on behalf of the HOA. The DocuSign certificate confirms both signatures came from the same IP address, 40 seconds apart. The HOA's income statements then show &ldquo;Independent Consultant Compensation&rdquo; of <strong>$2,800</strong> in 2025 and <strong>$6,775</strong> in just the first six months of 2026, paid under that contract with his company.</p>
+  <div class="highlight h-red">
+    <strong>The self-dealing is accelerating:</strong> $2,800 in all of 2025, then <strong>$6,775 in just the first six months of 2026</strong>, more than double, in half the time. Source: the HOA's own <a href="docs/income-statement-2026-h1.pdf" target="_blank">2026 income statement</a>, generated July 10, 2026.
+  </div>
+  <div class="highlight h-red">
+    <strong>Against the governing documents:</strong> Our Bylaws (Article XIII) bar any part of Association funds from being paid as compensation to a member of the Board of Directors. In our view, paying Association funds to the sole director's own company is exactly what Article XIII prohibits.
+  </div>
+
+  <h3>Not a homeowner</h3>
+  <p><a href="docs/property-chain-of-title.png" target="_blank">Cleveland County property records</a> show Ian Rupert sold his home here (12013 Garden Dr) on June 1, 2017; two owners have bought and sold it since. County records show <a href="docs/assessor-search-rupert-name.png" target="_blank">no lot in the subdivision held in Ian Rupert's own name</a>, and none under his known companies, Ian's Enterprise LLC or Esty's Rentals. He is not the individual owner of record of any home here.</p>
+  <div class="highlight h-red">
+    <strong>Bylaw violation:</strong> Our <a href="bylaws-text.html#art-ii-1">bylaws</a> state that membership "shall terminate without any formal Association action whenever such person ceases to own a Lot." <a href="bylaws-text.html#art-iv-1">Directors must be members of the Association</a>, and the <a href="bylaws-text.html#art-vi-1">President must be a Board member</a>. He does not meet any of these requirements.
+  </div>
+
+  <h3>$27,516 fence, no vote or bids on record</h3>
+  <p>Two days after his consulting contract was signed, the HOA's <strong>$27,516</strong> fence work order was dated Sept 6, 2024; Ian signed it Sept 17. The contact person on that project uses his company's email address. That one fence cost more than the HOA collected in <em>all of 2025</em> ($13,518 total income). The work order shows no competitive bids and no record of a homeowner vote or board approval.</p>
+
+  <h3>An up-to-$18,000 confidentiality clause</h3>
+  <p>In March 2026, Ian added an addendum to his own contract providing that a party who breaches the contract's confidentiality provision can owe the other side's reasonable attorney's fees, <strong>up to $18,000</strong>. He signed both sides again from the same IP address.</p>
+
+  <h3>Dues spent on lawyers and court costs</h3>
+  <p>The HOA's own 2026 records show <strong>$1,000</strong> in attorney fees and <strong>$1,787</strong> in court costs and server expenses in the first six months of 2026 alone, plus <strong>$6,522</strong> collected in fees and past-due interest, all from a one-man board with no minutes for the past two years and no budget in recent history, spending dues on lawyers and court costs (including a small-claims collection suit against a homeowner). Its bank balance rose to about <strong>$43,000</strong>: its 2025 year-end balance of $32,655 plus the $10,702 it netted in the first half of 2026.</p>
+
+  <h3>No minutes, no budget, a one-man board</h3>
+  <p>In response to a formal records request (#03361197), the HOA's management answered in writing on July 8, 2026:</p>
+  <div class="highlight h-red">
+    <p style="margin:0;">Asked for board meeting minutes for the past two years: <strong>&ldquo;No meeting minutes exist.&rdquo;</strong><br>
+    Asked for the current approved budget: <strong>&ldquo;No budget exists in recent history&hellip;&rdquo;</strong><br>
+    Asked for the current board roster: <strong>&ldquo;Ian Rupert, president.&rdquo;</strong></p>
+    <a href="docs/records-response-2026-07-08.png" target="_blank"><img src="docs/records-response-2026-07-08.png" alt="The HOA's written records response, July 8, 2026" style="display:block; max-width:100%; border:1px solid #e0ded8; border-radius:6px; margin:.65rem 0 .25rem;"></a>
+    <p style="margin:.25rem 0 0; font-size:.88em; opacity:.85;">The HOA's official written response, July 8, 2026 (tap to enlarge).</p>
+  </div>
+  <p>The HOA's response and its own financial records confirm:</p>
+  <ul>
+    <li>No <a href="bylaws-text.html#art-iii-4">meeting</a> minutes exist for the past two years (the period requested)</li>
+    <li><a href="bylaws-text.html#art-v-2">No budget</a> exists &ldquo;in recent history&rdquo; (the HOA's own words)</li>
+    <li>Ian Rupert is the sole board member, the only name on the roster the HOA provided</li>
+    <li>The HOA lost <strong>$9,125</strong> in 2025</li>
+    <li>Approximately <strong>$32,000</strong> remained in the bank at the end of 2025</li>
+  </ul>
+
+  <h3>Records request cost: $100</h3>
+  <p>When the homeowner requested these records, the HOA charged $75 at $100/hour, the same rate as the consulting contract. A follow-up request for an omitted item cost another $25. <a href="bylaws-text.html#art-iv-3l">Requesting your own HOA's financial records</a> should not be expensive or difficult.</p>
+</div>
+
+<!-- ═══ DOCUMENTS ═══ -->
+<div class="section" id="records">
+  <h2>Records &amp; Source Documents</h2>
+  <p>These are the source documents behind this page: the HOA's own records from its Buildium portal and public county and state records. Every figure and claim above traces back to one of these. We're not asking you to take our word for it.</p>
+  <div class="doc-list">
+    <a href="docs/records-response-2026-07-08.png" target="_blank" class="doc-link">
+      <span class="doc-icon">IMG</span>
+      <span class="doc-info">
+        <span class="doc-title">HOA's Written Records Response</span>
+        <span class="doc-desc">The HOA's official reply (July 8, 2026): "No meeting minutes exist. No budget exists in recent history&hellip; Ian Rupert, president."</span>
+      </span>
+    </a>
+    <a href="docs/property-chain-of-title.png" target="_blank" class="doc-link">
+      <span class="doc-icon">IMG</span>
+      <span class="doc-info">
+        <span class="doc-title">Property Record: Chain of Title</span>
+        <span class="doc-desc">Cleveland County Assessor record for 12013 Garden Dr: Ian Rupert sold the lot June 1, 2017; owned by others since.</span>
+      </span>
+    </a>
+    <a href="docs/sos-hoa-registration.png" target="_blank" class="doc-link">
+      <span class="doc-icon">IMG</span>
+      <span class="doc-info">
+        <span class="doc-title">State Registration: Secretary of State</span>
+        <span class="doc-desc">HOA registered since May 30, 2006; its registered agent is Ian's Enterprise LLC.</span>
+      </span>
+    </a>
+    <a href="docs/assessor-search-rupert-name.png" target="_blank" class="doc-link">
+      <span class="doc-icon">IMG</span>
+      <span class="doc-info">
+        <span class="doc-title">Assessor Search: &ldquo;Rupert&rdquo;</span>
+        <span class="doc-desc">Cleveland County assessor: no property owned by Ian Rupert (the only matches are unrelated owners, none in our subdivision).</span>
+      </span>
+    </a>
+    <a href="docs/assessor-search-ians-enterprise-no-results.png" target="_blank" class="doc-link">
+      <span class="doc-icon">IMG</span>
+      <span class="doc-info">
+        <span class="doc-title">Assessor Search: &ldquo;Ian's Enterprise&rdquo;</span>
+        <span class="doc-desc">Cleveland County assessor: no property found under Ian's Enterprise LLC.</span>
+      </span>
+    </a>
+    <a href="docs/assessor-search-estys-rentals.png" target="_blank" class="doc-link">
+      <span class="doc-icon">IMG</span>
+      <span class="doc-info">
+        <span class="doc-title">Assessor Search: &ldquo;Esty's Rentals&rdquo;</span>
+        <span class="doc-desc">His rental company owns two properties, both outside our subdivision.</span>
+      </span>
+    </a>
+    <a href="docs/income-statement-2026-h1.pdf" target="_blank" class="doc-link">
+      <span class="doc-icon">PDF</span>
+      <span class="doc-info">
+        <span class="doc-title">2026 Income Statement (Jan&ndash;Jun)</span>
+        <span class="doc-desc">Shows $6,775 consultant payment in 6 months, $1,000 attorney fees, $1,787 court costs</span>
+      </span>
+    </a>
+    <a href="docs/income-statement-2025.pdf" target="_blank" class="doc-link">
+      <span class="doc-icon">PDF</span>
+      <span class="doc-info">
+        <span class="doc-title">2025 Income Statement</span>
+        <span class="doc-desc">Shows $13,518 income, $22,644 expenses, $2,800 consultant payment, $9,125 net loss</span>
+      </span>
+    </a>
+    <a href="docs/balance-sheet-2025.pdf" target="_blank" class="doc-link">
+      <span class="doc-icon">PDF</span>
+      <span class="doc-info">
+        <span class="doc-title">2025 Balance Sheet</span>
+        <span class="doc-desc">Shows $32,655 remaining in HOA checking account, $0 liabilities</span>
+      </span>
+    </a>
+    <a href="docs/fence-work-order-2024.pdf" target="_blank" class="doc-link">
+      <span class="doc-icon">PDF</span>
+      <span class="doc-info">
+        <span class="doc-title">Fence Work Order, $27,516</span>
+        <span class="doc-desc">Work order dated Sept 6, 2024 (two days after the consulting contract); signed by Ian Sept 17. Contact email: @IansEnterprise.com</span>
+      </span>
+    </a>
+  </div>
+</div>
+
+<!-- ═══ COMMON QUESTIONS ═══ -->
+<div class="section faq" id="questions">
+  <h2>Common Questions</h2>
+
+  <h3>Is signing the proxy legal?</h3>
+  <p>Yes. Oklahoma law (<a href="https://www.oscn.net/applications/oscn/Index.asp?ftdb=STOKST18&amp;level=1" target="_blank">18 O.S. &sect;1060</a>) explicitly allows members of a nonprofit corporation to vote by proxy. This is a standard legal instrument used in HOA meetings across the country.</p>
+
+  <h3>What if I change my mind after signing?</h3>
+  <p>You can revoke your proxy at any time by notifying Greg in writing. A text message is enough. And if you show up to the meeting in person, your in-person vote automatically takes priority over any proxy.</p>
+
+  <h3>Can the board president retaliate against me?</h3>
+  <p>Under our bylaws (Art. V &sect;2), the board can raise dues by at most 10% per year on its own; anything beyond that requires a member vote. And Oklahoma nonprofit law protects members' right to vote and participate in how the Association is run. Exercising that right is exactly what you're entitled to do.</p>
+
+  <h3>Could I be hit with the $18,000 for sharing this?</h3>
+  <p>No, that clause can't reach you. It's a term in the HOA's contract with <em>Ian's own company</em>, providing that a party who breaks the contract's confidentiality provision can owe the other side's attorney's fees, up to $18,000. <strong>You never signed that contract, so you're not bound by it.</strong> It binds the people who signed it, not individual homeowners. Discussing how your own HOA is run, and sharing public records about it, is your right. Nothing here asks you to sign or agree to anything.</p>
+
+  <h3>What's to stop the next board from being just as bad?</h3>
+  <p>Accountability is the one thing this HOA has lacked. A new board is <strong>elected by the members, not controlled by any single person</strong>, so it answers to you: <a href="bylaws-text.html#art-iii-4">annual meetings and elections are required</a>, a board of <a href="bylaws-text.html#art-iv-1">three</a> means no single person controls the money or signs contracts with himself, and owners can remove any director by a two-thirds vote. With an <a href="bylaws-text.html#art-v-2">open budget</a> and competitive bids, you can see where every dollar goes, and if a director doesn't serve the neighborhood well, you vote them out at the next election. Dues still fund the neighborhood, so a responsible board still collects them fairly, by clear published rules, not as any one person's private revenue.</p>
+
+  <h3>Where did this information come from?</h3>
+  <p>Everything on this page comes from the HOA's own records (obtained through a <a href="bylaws-text.html#art-iv-3l">formal records request</a> that any dues-paying member is entitled to make), together with public Cleveland County property records. The source documents are linked above under Records &amp; Source Documents.</p>
+
+  <h3>When will the meeting happen?</h3>
+  <p>A formal written demand has been sent to the current board president requiring him to schedule an annual meeting. If he refuses or ignores it, Oklahoma law (<a href="https://www.oscn.net/applications/oscn/Index.asp?ftdb=STOKST18&amp;level=1" target="_blank">18 O.S. &sect;1060(D)</a>) allows any member to petition the court to order one. Sign up for email updates below to be notified when a date is set.</p>
+
+  <h3>What if not enough people sign?</h3>
+  <p>Every proxy matters. Under our <a href="bylaws-text.html#art-iii-4">bylaws</a>, director elections at annual meetings have no quorum requirement, meaning even a small number of participating owners can elect a new board. The more proxies we have, the stronger the mandate, but there is no minimum threshold for the election itself.</p>
+
+  <h3>What happens to my dues if the board changes?</h3>
+  <p>The new board's first priority is terminating the <a href="bylaws-text.html#ccr-2-10">self-dealing consulting contract</a> and getting competitive bids for any HOA work. The goal is to spend your dues on the neighborhood, not on contracts with the board president's own company. Under Art. V &sect;2, the board can raise dues by up to 10% per year; larger increases require a member vote.</p>
+</div>
+
+<!-- ═══ HOW TO HELP ═══ -->
+<div class="section" id="help">
+  <h2>How to Help</h2>
+
+  <h3>Sign the proxy form</h3>
+  <p>A proxy form was included with the letter you received. Signing it means your vote counts at the meeting even if you can't be there in person. This is authorized under Oklahoma law (<a href="https://www.oscn.net/applications/oscn/Index.asp?ftdb=STOKST18&amp;level=1" target="_blank">18 O.S. &sect;1060</a>), which allows members of a nonprofit corporation to vote by proxy. The proxy remains valid until you revoke it in writing.</p>
+  <p>You are not signing over ownership of anything. You are simply saying: "I want my vote counted at the next HOA meeting, and I authorize Greg Banks to cast it on my behalf." That's it.</p>
+  <p>Sign it, and get it back to Greg at 508 SW 121st Pl: on the door, in person, by mail, or by text/photo.</p>
+
+  <h3>Don't have the form?</h3>
+  <p>No problem. You can <a href="proxy.html">fill one out on your phone</a>, print a new copy, or text Greg and he'll get you one.</p>
+
+  <h3>Get in touch</h3>
+  <p>If any of this concerns you, reach out. Every vote matters in a neighborhood this small.</p>
+  <div style="margin-top:.5rem;">
+    <a class="cta-btn" href="mailto:gregdbanks20053@gmail.com?subject=Greenbriar%20HOA">Email Greg</a>
+  </div>
+  <div class="contact-block">
+    <strong>Greg Banks</strong>, homeowner at 508 SW 121st Pl<br>
+    <a href="tel:4054417525">405-441-7525</a><br>
+    <a href="mailto:gregdbanks20053@gmail.com">gregdbanks20053@gmail.com</a>
+  </div>
+
+  <div class="email-signup">
+    <p><strong>Want to be notified when a meeting is scheduled?</strong></p>
+    <a class="cta-btn" href="https://forms.gle/QGwsT31LPGw84hQE9" target="_blank">Get Email Updates</a>
+    <p class="signup-note">We'll only email you about HOA meeting dates and major updates. Nothing else.</p>
+  </div>
+</div>
+
+<!-- ═══ VOTE TRACKER ═══ -->
+<div class="vote-tracker" id="progress">
+  <h2>Add Your Proxy</h2>
+  <div class="vote-label">Every proxy strengthens our mandate, and there is no minimum required to win, so each one counts. Adding yours takes about 30 seconds.</div>
+  <a class="cta-primary" href="proxy.html">Sign Your Proxy</a>
+</div>
+
+<!-- ═══ WHAT'S BEING DONE ═══ -->
+<div class="section" id="action">
+  <h2>What's Being Done</h2>
+
+  <div class="highlight h-blue">
+    <strong>Attorney General complaint on record.</strong>
+    A formal complaint was submitted to the Oklahoma Attorney General's Consumer Protection Unit documenting the self-dealing contract, the confidentiality clause, the fence, and the lack of governance. The Attorney General's office does not adjudicate private HOA disputes and declined to open an investigation, but the complaint is on record. That is why the annual-meeting demand and the 18 O.S. &sect;1060(D) court application are the active track.
+  </div>
+
+  <div class="highlight h-amber">
+    <strong>Annual meeting demand.</strong>
+    Our <a href="bylaws-text.html#art-iii-4">bylaws require annual meetings</a>, and the HOA has produced no record of one. A formal written demand <strong>has been sent</strong>, by certified mail, to the board president to schedule one. If he refuses, Oklahoma law (<a href="https://www.oscn.net/applications/oscn/Index.asp?ftdb=STOKST18&amp;level=1" target="_blank">18 O.S. &sect;1060(D)</a>) allows any member to petition the court to order an election.
+  </div>
+</div>
+
+<!-- ═══ WHAT HAPPENS AT THE MEETING ═══ -->
+<div class="section" id="meeting">
+  <h2>What Happens at the Meeting</h2>
+  <p>This isn't just about removing one person. When the annual meeting happens, we <a href="bylaws-text.html#art-iv-1">elect a new board</a>. That means we need neighbors who are willing to serve.</p>
+
+  <h3>What does a board member do?</h3>
+  <p>Show up to a meeting a few times a year, review the budget, and vote on neighborhood decisions. No experience required. The goal is a <a href="bylaws-text.html#art-iv-1">3-person board</a> so no one person controls everything.</p>
+
+  <h3>Do I have to be there in person?</h3>
+  <p>No. If you signed a proxy, your vote counts whether you attend or not. But if you want to be there, show up. Your in-person vote takes priority over any proxy.</p>
+
+  <h3>Interested in serving on the board?</h3>
+  <p>If you'd be willing to help run this neighborhood the right way, fill out the short form below. It takes about a minute. You don't need a background in finance or law. You just need to care enough to show up.</p>
+  <div style="margin-top:.5rem;">
+    <a class="cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSca1bWoIDBC2aJ7s3ciyJSYLaXR1SoN6XvzkntgPUlzUjHHUg/viewform" target="_blank">Run for the Board</a>
+  </div>
+  <p style="margin-top:.4rem;">Prefer email? Reach Greg at <a href="mailto:gregdbanks20053@gmail.com?subject=Board%20Interest%20-%20Greenbriar%20HOA">gregdbanks20053@gmail.com</a>.</p>
+
+  <h3>What the new board will do differently</h3>
+  <p>The goal is simple: a 3-person board that holds <a href="bylaws-text.html#art-iii-4">annual meetings</a>, publishes a <a href="bylaws-text.html#art-v-2">budget</a>, and <a href="bylaws-text.html#ccr-2-10">doesn't pay itself</a>. No hidden agenda. Just a neighborhood that's run the way the bylaws intended, with full transparency and owner input on how your dues are spent.</p>
+</div>
+
+<!-- ═══ RESOURCES ═══ -->
+<div class="section" id="resources">
+  <h2>Resources</h2>
+  <div class="resources-grid">
+    <div class="resource-card">
+      <h3>Know Your Bylaws</h3>
+      <p>Every rule, every right, every protection, explained in plain English.</p>
+      <a class="cta-muted" href="bylaws.html">Explore the Bylaws</a>
+      <p style="margin-top:.5rem; font-size:.78rem; color:#888;">
+        Or <a href="docs/bylaws.pdf" target="_blank">download the PDF</a>
+      </p>
+    </div>
+    <div class="resource-card">
+      <h3>Community Discussion</h3>
+      <p>Connect with neighbors, ask questions, and share updates.</p>
+      <a class="cta-muted" href="https://groups.google.com/g/greenbriar-hoa" target="_blank">Join the Group</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ANNOUNCEMENTS ═══ -->
+<div class="section" id="announcements">
+  <h2>Announcements</h2>
+
+  <!-- Greg: add new announcements at the top. Copy this format: -->
+  <!-- <div class="announcement">
+    <div class="ann-date">July XX, 2026</div>
+    <p>Your announcement text here.</p>
+  </div> -->
+
+  <div class="announcement">
+    <div class="ann-date">July 16, 2026</div>
+    <p>A formal demand for an annual meeting has been <strong>delivered to the HOA by certified mail</strong>. We have given the board 30 days to schedule it. Under 18 O.S. &sect;1060(D), when no annual meeting has been held as the bylaws require, any member can ask the district court to summarily order an election, and we are prepared to do that. Letters and proxy forms have now reached every owner-occupied home in the neighborhood. Two things help most: <a href="proxy.html">sign your proxy</a> so your vote counts even if you can't attend, and if you'd consider serving on a new board (we need just a few, no experience required), <a href="https://docs.google.com/forms/d/e/1FAIpQLSca1bWoIDBC2aJ7s3ciyJSYLaXR1SoN6XvzkntgPUlzUjHHUg/viewform" target="_blank">reach out here</a>.</p>
+  </div>
+
+  <div class="announcement">
+    <div class="ann-date">July 11, 2026</div>
+    <p>We added a <a href="bylaws-text.html">full text version of our bylaws</a> to the site. Every article and section is readable without downloading the PDF. If you click any of the bylaw references on this page, it will take you straight to that section and highlight it so you can read it in context.</p>
+  </div>
+</div>
+
+</div><!-- .wrap -->
+
+<!-- ═══ BACK TO TOP ═══ -->
+<button class="back-to-top" aria-label="Back to top">&uarr;</button>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="site-footer">
+  <p>Villages at Greenbriar HOA &middot; Oklahoma City, OK 73170</p>
+  <p style="margin-top:.3rem;">Questions? <a href="mailto:gregdbanks20053@gmail.com">gregdbanks20053@gmail.com</a> &middot; <a href="tel:4054417525">405-441-7525</a></p>
+</footer>
+
+<script>
+
+// Back to top button
+(function() {
+  var btn = document.querySelector('.back-to-top');
+  window.addEventListener('scroll', function() {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>

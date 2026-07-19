@@ -1,0 +1,2143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Know Your Bylaws, Villages at Greenbriar HOA</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --hero-bg: #0a0f1a;
+  --particle-glow: #4fc3f7;
+  --content-bg: #ffffff;
+  --accent-green: #3a7d5c;
+  --accent-amber: #e8a838;
+  --accent-red: #c0392b;
+  --accent-blue: #2980b9;
+  --text: #1a1a1a;
+  --muted: #888;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--content-bg);
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+#hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: var(--hero-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#hero-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  color: #fff;
+  pointer-events: none;
+}
+
+.hero-text h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.hero-text p {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: rgba(255,255,255,0.6);
+  font-weight: 300;
+}
+
+.scroll-arrow {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  color: rgba(255,255,255,0.5);
+  font-size: 2rem;
+  animation: pulse-arrow 2s ease-in-out infinite;
+  cursor: pointer;
+}
+
+@keyframes pulse-arrow {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
+}
+
+/* Content Sections */
+.section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.section h2 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.section h2 .accent { color: var(--accent-green); }
+.section h2 .accent-amber { color: var(--accent-amber); }
+
+.section-subtitle {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Key provision highlight */
+@keyframes key-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(232, 168, 56, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(232, 168, 56, 0.6); }
+}
+
+.key-highlight {
+  border: 2px solid var(--accent-amber) !important;
+  animation: key-pulse 2.5s ease-in-out infinite;
+}
+
+/* Legal blockquote */
+.blockquote-legal {
+  border-left: 4px solid var(--accent-amber);
+  background: #fffcf0;
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #444;
+  font-style: italic;
+}
+
+.blockquote-legal.red-border {
+  border-left-color: var(--accent-red);
+  background: #fff5f5;
+}
+
+/* ===== SECTION 2: TREEMAP ===== */
+#treemap-section { max-width: 1000px; }
+
+#treemap-container {
+  width: 100%;
+  height: 420px;
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+#treemap-container .treemap-cell {
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.8);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  padding: 4px;
+  line-height: 1.2;
+}
+
+#treemap-container .treemap-cell:hover { opacity: 0.85; }
+
+.treemap-tooltip {
+  position: fixed;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  max-width: 280px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  font-size: 0.85rem;
+  color: #444;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 200;
+}
+
+.treemap-tooltip.show { opacity: 1; }
+
+.treemap-tooltip strong {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--text);
+}
+
+/* ===== SECTION 3: VOTER ELIGIBILITY ===== */
+#voter-section { max-width: 800px; }
+
+#decision-tree-svg {
+  width: 100%;
+  max-width: 700px;
+  height: 380px;
+  display: block;
+  margin: 0 auto;
+}
+
+.dt-node rect {
+  rx: 12;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.dt-node:hover rect { filter: brightness(1.1); }
+
+.dt-node text {
+  font-size: 13px;
+  fill: #fff;
+  text-anchor: middle;
+  pointer-events: none;
+  font-weight: 600;
+}
+
+.dt-edge {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2;
+}
+
+.dt-edge-label {
+  font-size: 11px;
+  fill: var(--muted);
+  font-weight: 600;
+}
+
+.quorum-callout {
+  background: #1a1a1a;
+  border: 2px solid var(--accent-amber);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  margin-top: 2.5rem;
+  text-align: center;
+  animation: key-pulse 2.5s ease-in-out infinite;
+}
+
+.quorum-callout h3 {
+  color: var(--accent-amber);
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.quorum-callout p {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.quorum-callout .big-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent-amber);
+  margin: 0.75rem 0;
+}
+
+.vote-math {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.vote-math-card {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  min-width: 140px;
+}
+
+.vote-math-card .number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-green);
+}
+
+.vote-math-card .label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
+}
+
+/* ===== SECTION 4: BOARD POWERS ===== */
+#board-section { max-width: 1000px; }
+
+#force-graph-container {
+  width: 100%;
+  height: 500px;
+  position: relative;
+}
+
+#force-graph-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.force-tooltip {
+  position: fixed;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  max-width: 300px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  font-size: 0.82rem;
+  color: #444;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 200;
+  line-height: 1.5;
+}
+
+.force-tooltip.show { opacity: 1; }
+
+.terms-flow {
+  margin-top: 2.5rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+#terms-flow-svg {
+  width: 100%;
+  min-width: 600px;
+  height: 120px;
+  display: block;
+}
+
+/* ===== SECTION 5: OFFICERS ===== */
+#officers-section { text-align: center; }
+
+#officers-svg {
+  width: 100%;
+  max-width: 500px;
+  height: 420px;
+  margin: 0 auto;
+  display: block;
+}
+
+.officer-card {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.2rem;
+  max-width: 260px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  z-index: 100;
+  text-align: left;
+}
+
+.officer-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.officer-card h4 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+  color: var(--accent-green);
+}
+
+.officer-card p {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ===== SECTION 6: MONEY ===== */
+#money-section { max-width: 800px; }
+
+#bar-chart-container {
+  width: 100%;
+  height: 320px;
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+#bar-chart-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.slider-container {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.slider-container label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+#dues-slider {
+  width: 80%;
+  max-width: 400px;
+  cursor: pointer;
+  accent-color: var(--accent-green);
+}
+
+.threshold-label {
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+/* ===== SECTION 7: KEY PROVISIONS FLIP CARDS ===== */
+#provisions-section { max-width: 900px; }
+
+.flip-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.flip-card {
+  perspective: 1000px;
+  height: 260px;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.flip-card.oversized { height: 300px; }
+
+.flip-card.from-left { transform: translateX(-60px); }
+.flip-card.from-right { transform: translateX(60px); }
+
+.flip-card.revealed {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+
+.flip-front, .flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flip-front {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.flip-front.amber-bg {
+  background: linear-gradient(135deg, #fff8e1, #fff3cd);
+  border-color: var(--accent-amber);
+}
+
+.flip-front .card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.flip-front h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.flip-front .card-ref {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.flip-back {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  transform: rotateY(180deg);
+  overflow-y: auto;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.flip-back h4 {
+  font-size: 0.9rem;
+  color: var(--accent-green);
+  margin-bottom: 0.5rem;
+}
+
+.flip-back .legal-text {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 0.75rem;
+  font-size: 0.78rem;
+}
+
+.flip-back .provision-note {
+  background: #f0f7f4;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
+  color: #555;
+  margin-top: auto;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+/* ===== SECTION 8: COMPENSATION VIOLATION ===== */
+#compensation-section { max-width: 1000px; }
+
+.two-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.panel {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.panel h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.panel h3.red { color: var(--accent-red); }
+.panel h3.green { color: var(--accent-green); }
+
+.panel svg {
+  width: 100%;
+  height: 200px;
+  display: block;
+}
+
+/* ===== SECTION 9: MEETING MECHANICS ===== */
+#meeting-section { max-width: 1000px; }
+
+.card-track-wrapper {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.card-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 1rem 0 2rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.card-track::-webkit-scrollbar { display: none; }
+
+.meeting-card {
+  flex: 0 0 240px;
+  scroll-snap-align: start;
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.3s;
+  position: relative;
+}
+
+.meeting-card:hover { transform: translateY(-4px); }
+
+.meeting-card .card-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #e0e0e0;
+  margin-bottom: 0.5rem;
+}
+
+.meeting-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.meeting-card p {
+  font-size: 0.82rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.card-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card-nav button {
+  background: var(--accent-green);
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.card-nav button:hover { background: #2d6148; }
+
+.special-meeting-flow {
+  margin-top: 2.5rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+#special-meeting-svg {
+  width: 100%;
+  min-width: 600px;
+  height: 120px;
+  display: block;
+}
+
+/* ===== SECTION 10: COMMITTEES ===== */
+#committees-section { max-width: 800px; }
+
+#committee-tree-svg {
+  width: 100%;
+  height: 380px;
+  display: block;
+  margin-top: 1.5rem;
+}
+
+.committee-tooltip {
+  position: fixed;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  max-width: 260px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  font-size: 0.85rem;
+  color: #444;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 200;
+}
+
+.committee-tooltip.show { opacity: 1; }
+
+/* ===== SECTION 11: SHIELD ===== */
+#shield-section { max-width: 700px; }
+
+.shield-list { margin-top: 2rem; }
+
+.shield-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.shield-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shield-icon {
+  font-size: 1.5rem;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f7f4;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.shield-text h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.shield-text p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ===== SECTION 12: CHEAT SHEET ===== */
+#cheatsheet-section { max-width: 900px; }
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.stat-card {
+  background: #f8f9fa;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stat-card.revealed {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.stat-card.amber-card {
+  background: linear-gradient(135deg, #fff8e1, #fff3cd);
+  border-color: var(--accent-amber);
+}
+
+.stat-card .stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent-green);
+  margin-bottom: 0.3rem;
+}
+
+.stat-card.amber-card .stat-number {
+  color: var(--accent-amber);
+}
+
+.stat-card .stat-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.stat-card .stat-ref {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* ===== FLOW COMMON ===== */
+.flow-node rect {
+  fill: #f8f9fa;
+  stroke: var(--accent-green);
+  stroke-width: 2;
+  rx: 8;
+  transition: fill 0.2s;
+  cursor: pointer;
+}
+
+.flow-node:hover rect { fill: #e8f5e9; }
+
+.flow-node text {
+  font-size: 11px;
+  fill: var(--text);
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.flow-arrow {
+  fill: none;
+  stroke: var(--accent-green);
+  stroke-width: 2;
+}
+
+/* ===== TOP NAV ===== */
+.top-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(10, 15, 26, 0.95);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.top-nav a {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.top-nav a:hover { color: #fff; }
+
+.top-nav .download-btn {
+  background: var(--accent-green);
+  color: #fff;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: background 0.2s;
+}
+
+.top-nav .download-btn:hover { background: #2d6148; }
+
+@media print { .top-nav { display: none; } }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .section { padding: 4rem 1.5rem; }
+  .flip-grid { grid-template-columns: 1fr; }
+  .two-panel { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .meeting-card { flex: 0 0 220px; }
+  #force-graph-container { height: 400px; }
+  .vote-math { gap: 0.75rem; }
+  .vote-math-card { min-width: 100px; padding: 0.75rem 1rem; }
+  .vote-math-card .number { font-size: 1.4rem; }
+  #treemap-container { height: 350px; }
+}
+
+@media (max-width: 480px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .flip-card { height: 240px; }
+  .flip-card.oversized { height: 270px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<nav class="top-nav">
+  <a href="index.html">&larr; Back to Greenbriar HOA</a>
+  <a href="docs/bylaws.pdf" target="_blank" class="download-btn">Download Bylaws PDF</a>
+</nav>
+
+<!-- Hero Section -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-text">
+    <h1>Know Your Bylaws</h1>
+    <p>Your governing documents, explained</p>
+  </div>
+  <div class="scroll-arrow" onclick="document.getElementById('treemap-section').scrollIntoView({behavior:'smooth'})">&#8595;</div>
+</section>
+
+<!-- Section 2: Power Map / Treemap -->
+<section id="treemap-section" class="section">
+  <h2>The Power <span class="accent">Map</span></h2>
+  <p class="section-subtitle">Every article and provision, sized by importance. Click any block to jump to that section.</p>
+  <div id="treemap-container"></div>
+  <div class="treemap-tooltip" id="treemap-tooltip"></div>
+</section>
+
+<!-- Section 3: Voter Eligibility -->
+<section id="voter-section" class="section">
+  <h2>Who You <span class="accent">Are</span></h2>
+  <p class="section-subtitle">Membership, voting rights, and the quorum rules that change everything. Articles I, II, X.</p>
+  <svg id="decision-tree-svg"></svg>
+  <div class="quorum-callout">
+    <h3>The Quorum Exception</h3>
+    <p class="big-text">"THERE IS NO QUORUM REQUIREMENT FOR THE ELECTION OF DIRECTORS AT ANY ANNUAL MEETING."</p>
+    <p>Bylaws Art. II-3 &amp; Art. III-4, repeated twice for emphasis. Elections happen no matter who shows up.</p>
+  </div>
+  <div class="vote-math">
+    <div class="vote-math-card">
+      <div class="number" style="color:var(--accent-amber)">0</div>
+      <div class="label">Quorum required to elect a new board</div>
+    </div>
+    <div class="vote-math-card">
+      <div class="number">55</div>
+      <div class="label">Homes in our HOA &middot; 46 owner-occupied, 9 rented</div>
+    </div>
+    <div class="vote-math-card">
+      <div class="number">19</div>
+      <div class="label">Quorum, routine business only, not elections</div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Board of Directors -->
+<section id="board-section" class="section">
+  <h2>The <span class="accent">Board</span></h2>
+  <p class="section-subtitle">Article IV grants the Board sweeping powers. Here are all 19, color-coded by category.</p>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem;font-size:0.8rem;">
+    <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--accent-green);vertical-align:middle;margin-right:4px;"></span>Admin</span>
+    <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--accent-amber);vertical-align:middle;margin-right:4px;"></span>Financial</span>
+    <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--accent-red);vertical-align:middle;margin-right:4px;"></span>Enforcement</span>
+    <span><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--accent-blue);vertical-align:middle;margin-right:4px;"></span>Governance</span>
+  </div>
+  <div id="force-graph-container">
+    <svg id="force-graph-svg"></svg>
+  </div>
+  <div class="force-tooltip" id="force-tooltip"></div>
+  <div class="terms-flow">
+    <svg id="terms-flow-svg"></svg>
+  </div>
+</section>
+
+<!-- Section 5: Officers -->
+<section id="officers-section" class="section">
+  <h2>The <span class="accent">Officers</span></h2>
+  <p class="section-subtitle">Officers are chosen BY the Board, not by members. Article VI.</p>
+  <div style="position:relative;display:flex;justify-content:center;">
+    <svg id="officers-svg"></svg>
+    <div class="officer-card" id="officer-card"></div>
+  </div>
+</section>
+
+<!-- Section 6: The Money -->
+<section id="money-section" class="section">
+  <h2>The <span class="accent-amber">Money</span></h2>
+  <p class="section-subtitle">Article V: Fiscal management. The Board can raise dues up to 10% on its own. Beyond that requires a member vote.</p>
+  <svg id="bar-chart-svg" viewBox="0 0 700 300"></svg>
+  <div class="slider-container">
+    <label>Dues Increase: <span id="dues-pct">0</span>%</label>
+    <input type="range" id="dues-slider" min="0" max="15" value="0" step="1">
+  </div>
+  <div class="threshold-label" id="threshold-label">Current: No increase</div>
+</section>
+
+<!-- Section 7: Key Provisions -->
+<section id="provisions-section" class="section">
+  <h2>Key <span class="accent">Provisions</span></h2>
+  <p class="section-subtitle">Important rules every homeowner should know. Click any card to see the exact bylaw language.</p>
+  <div class="flip-grid" id="flip-grid"></div>
+</section>
+
+<!-- Section 8: Compensation Violation -->
+<section id="compensation-section" class="section">
+  <h2>Compensation <span class="accent">Rules</span></h2>
+  <p class="section-subtitle">Article XIII + CC&amp;R 2.10: Two provisions that independently prohibit director compensation.</p>
+  <div class="two-panel">
+    <div class="panel">
+      <h3 class="red">What's Prohibited</h3>
+      <svg id="violation-flow-svg"></svg>
+    </div>
+    <div class="panel">
+      <h3 class="green">What Owners Can Do</h3>
+      <svg id="remedy-flow-svg"></svg>
+    </div>
+  </div>
+  <div class="blockquote-legal red-border" style="margin-top:2rem;">
+    <strong style="display:block;margin-bottom:0.5rem;color:var(--accent-red);font-style:normal;">CC&amp;R Section 2.10, Prohibition of Employment or Other Pecuniary Gain</strong>
+    "No part of the assessments or net earnings of the Association shall inure to the benefit of any Lot Owner or individual, except to the extent that Lot Owners receive the benefits from the maintenance, repair, operations, additions, alterations and improvement responsibility of the Association. No Lot Owner or any business in which a Lot Owner has an interest may receive a credit or compensation, directly or indirectly, for services rendered as an officer, director or employee of the Association."
+  </div>
+</section>
+
+<!-- Section 9: Meeting Mechanics -->
+<section id="meeting-section" class="section">
+  <h2>Meeting <span class="accent">Mechanics</span></h2>
+  <p class="section-subtitle">Article III-7: The required order of business at every meeting.</p>
+  <div class="card-track-wrapper">
+    <div class="card-track" id="meeting-track"></div>
+    <div class="card-nav">
+      <button id="meeting-prev">&#8592;</button>
+      <button id="meeting-next">&#8594;</button>
+    </div>
+  </div>
+  <h3 style="margin-top:3rem;font-size:1.1rem;">Special Meetings</h3>
+  <p style="color:var(--muted);font-size:0.9rem;margin:0.5rem 0 1rem;">Art. III-5: Any owner can force a meeting with enough signatures.</p>
+  <div class="special-meeting-flow">
+    <svg id="special-meeting-svg"></svg>
+  </div>
+</section>
+
+<!-- Section 10: Committees -->
+<section id="committees-section" class="section">
+  <h2><span class="accent">Committees</span></h2>
+  <p class="section-subtitle">Article XII: The Board may appoint standing or ad hoc committees.</p>
+  <svg id="committee-tree-svg"></svg>
+  <div class="committee-tooltip" id="committee-tooltip"></div>
+</section>
+
+<!-- Section 11: Your Shield -->
+<section id="shield-section" class="section">
+  <h2>Your <span class="accent">Shield</span></h2>
+  <p class="section-subtitle">Why serving on the board is safe. Articles VII and IX.</p>
+  <div class="shield-list">
+    <div class="shield-item">
+      <div class="shield-icon">&#128737;</div>
+      <div class="shield-text">
+        <h4>Indemnification</h4>
+        <p>Art. VII-1: The Association indemnifies every Director, Officer, and Managing Agent against all loss, costs, and expenses, except gross negligence or willful misconduct.</p>
+      </div>
+    </div>
+    <div class="shield-item">
+      <div class="shield-icon">&#128220;</div>
+      <div class="shield-text">
+        <h4>No Personal Liability on Contracts</h4>
+        <p>Art. VII-2: Contracts made by the Board are made as agents for the members. Directors have no personal responsibility on any contract or commitment.</p>
+      </div>
+    </div>
+    <div class="shield-item">
+      <div class="shield-icon">&#127919;</div>
+      <div class="shield-text">
+        <h4>Insurance Coverage</h4>
+        <p>Art. IV-3d: The Board shall obtain comprehensive liability insurance covering the entire premises, $100K per person, $300K per accident, $50K property damages.</p>
+      </div>
+    </div>
+  </div>
+  <p style="margin-top:2rem;text-align:center;color:var(--accent-green);font-weight:600;font-size:1.05rem;">You're protected. Do the right thing and the bylaws have your back.</p>
+</section>
+
+<!-- Section 12: Cheat Sheet -->
+<section id="cheatsheet-section" class="section">
+  <h2>Quick <span class="accent">Reference</span></h2>
+  <p class="section-subtitle">The numbers that matter. Tear this page out.</p>
+  <div class="stat-grid" id="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">3&ndash;7</div>
+      <div class="stat-label">Directors</div>
+      <div class="stat-ref">Art. IV-1</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">2/3</div>
+      <div class="stat-label">Remove a Director</div>
+      <div class="stat-ref">Art. IV-7</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">10%</div>
+      <div class="stat-label">Max dues increase (no vote)</div>
+      <div class="stat-ref">Art. V-2</div>
+    </div>
+    <div class="stat-card amber-card">
+      <div class="stat-number">1 yr</div>
+      <div class="stat-label">Max contract length</div>
+      <div class="stat-ref">Art. IV-3r</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">30/90</div>
+      <div class="stat-label">Days to terminate contract</div>
+      <div class="stat-ref">Art. IV-3r</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">10&ndash;30</div>
+      <div class="stat-label">Days notice for meetings</div>
+      <div class="stat-ref">Art. III-6</div>
+    </div>
+    <div class="stat-card amber-card">
+      <div class="stat-number">$0</div>
+      <div class="stat-label">Director compensation</div>
+      <div class="stat-ref">Art. XIII + CC&amp;R 2.10</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">1/3</div>
+      <div class="stat-label">Quorum (general business)</div>
+      <div class="stat-ref">Art. II-3</div>
+    </div>
+  </div>
+</section>
+
+<!-- Download Section -->
+<section class="section" style="text-align:center;max-width:600px;padding-bottom:4rem;">
+  <h2>Read the <span class="accent">Original</span></h2>
+  <p class="section-subtitle">Everything on this page comes from the official bylaws filed with Cleveland County. Download the original document and see for yourself.</p>
+  <a href="docs/bylaws.pdf" target="_blank" style="display:inline-block;padding:0.8rem 2rem;background:var(--accent-green);color:#fff;border-radius:10px;text-decoration:none;font-weight:600;font-size:1rem;transition:background 0.2s;">Download Official Bylaws (PDF)</a>
+  <p style="margin-top:1.5rem;font-size:0.85rem;color:var(--muted);">Filed with the Cleveland County Clerk, Oklahoma. These are the governing documents of The Villages at Greenbriar HOA, Inc.</p>
+  <p style="margin-top:2rem;"><a href="index.html" style="color:var(--accent-green);text-decoration:none;font-weight:600;">&larr; Back to Greenbriar HOA</a></p>
+</section>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+// ============================================================
+// THREE.JS CONSTELLATION HERO
+// ============================================================
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 6;
+
+  const isMobile = window.innerWidth < 768;
+  const particleCount = isMobile ? 100 : 200;
+  const positions = new Float32Array(particleCount * 3);
+  const velocities = [];
+  const CONNECTION_DIST = 1.8;
+
+  // Spherical distribution
+  for (let i = 0; i < particleCount; i++) {
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    const r = 2 + Math.random() * 1.5;
+    positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+    positions[i * 3 + 2] = r * Math.cos(phi);
+    velocities.push({
+      vx: (Math.random() - 0.5) * 0.003,
+      vy: (Math.random() - 0.5) * 0.003,
+      vz: (Math.random() - 0.5) * 0.003,
+      pulse: Math.random() * Math.PI * 2,
+      pulseSpeed: 0.02 + Math.random() * 0.02
+    });
+  }
+
+  // Points
+  const pointsGeom = new THREE.BufferGeometry();
+  pointsGeom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const pointsMat = new THREE.PointsMaterial({
+    color: 0x4fc3f7,
+    size: isMobile ? 0.07 : 0.05,
+    transparent: true,
+    opacity: 0.9,
+    blending: THREE.AdditiveBlending
+  });
+  const points = new THREE.Points(pointsGeom, pointsMat);
+  scene.add(points);
+
+  // Lines
+  const maxLines = particleCount * 6;
+  const linePositions = new Float32Array(maxLines * 6);
+  const lineGeom = new THREE.BufferGeometry();
+  lineGeom.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+  const lineMat = new THREE.LineBasicMaterial({
+    color: 0x4fc3f7,
+    transparent: true,
+    opacity: 0.15,
+    blending: THREE.AdditiveBlending
+  });
+  const lines = new THREE.LineSegments(lineGeom, lineMat);
+  scene.add(lines);
+
+  let mouseX = 0, mouseY = 0;
+  document.addEventListener('mousemove', (e) => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
+  });
+
+  let heroVisible = true;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    if (!heroVisible) return;
+
+    const pos = pointsGeom.attributes.position.array;
+
+    // Update particle positions
+    for (let i = 0; i < particleCount; i++) {
+      const v = velocities[i];
+      v.pulse += v.pulseSpeed;
+      const pulseFactor = 1 + Math.sin(v.pulse) * 0.002;
+      pos[i * 3] += v.vx;
+      pos[i * 3 + 1] += v.vy;
+      pos[i * 3 + 2] += v.vz;
+
+      // Soft boundary
+      const dist = Math.sqrt(pos[i*3]**2 + pos[i*3+1]**2 + pos[i*3+2]**2);
+      if (dist > 4) {
+        const scale = 4 / dist;
+        pos[i*3] *= scale;
+        pos[i*3+1] *= scale;
+        pos[i*3+2] *= scale;
+        v.vx *= -0.5; v.vy *= -0.5; v.vz *= -0.5;
+      }
+    }
+    pointsGeom.attributes.position.needsUpdate = true;
+
+    // Update connections
+    let lineIdx = 0;
+    const lp = lineGeom.attributes.position.array;
+    for (let i = 0; i < particleCount && lineIdx < maxLines * 6; i++) {
+      for (let j = i + 1; j < particleCount && lineIdx < maxLines * 6; j++) {
+        const dx = pos[i*3] - pos[j*3];
+        const dy = pos[i*3+1] - pos[j*3+1];
+        const dz = pos[i*3+2] - pos[j*3+2];
+        const d = Math.sqrt(dx*dx + dy*dy + dz*dz);
+        if (d < CONNECTION_DIST) {
+          lp[lineIdx++] = pos[i*3];
+          lp[lineIdx++] = pos[i*3+1];
+          lp[lineIdx++] = pos[i*3+2];
+          lp[lineIdx++] = pos[j*3];
+          lp[lineIdx++] = pos[j*3+1];
+          lp[lineIdx++] = pos[j*3+2];
+        }
+      }
+    }
+    // Zero out remaining
+    for (let k = lineIdx; k < maxLines * 6; k++) lp[k] = 0;
+    lineGeom.attributes.position.needsUpdate = true;
+    lineGeom.setDrawRange(0, lineIdx / 3);
+
+    points.rotation.y += 0.0005;
+    lines.rotation.y += 0.0005;
+
+    camera.position.x += (mouseX - camera.position.x) * 0.02;
+    camera.position.y += (-mouseY - camera.position.y) * 0.02;
+    camera.lookAt(scene.position);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  const heroObs = new IntersectionObserver((entries) => {
+    heroVisible = entries[0].isIntersecting;
+  }, { threshold: 0.1 });
+  heroObs.observe(document.getElementById('hero'));
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+
+// ============================================================
+// GSAP SCROLL ANIMATIONS
+// ============================================================
+gsap.registerPlugin(ScrollTrigger);
+
+document.querySelectorAll('.section').forEach(section => {
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top 80%',
+    onEnter: () => section.classList.add('visible'),
+    once: true
+  });
+});
+
+// Shield items
+document.querySelectorAll('.shield-item').forEach((item, i) => {
+  ScrollTrigger.create({
+    trigger: item,
+    start: 'top 85%',
+    onEnter: () => { setTimeout(() => item.classList.add('visible'), i * 150); },
+    once: true
+  });
+});
+
+// Stat cards
+document.querySelectorAll('.stat-card').forEach((card, i) => {
+  ScrollTrigger.create({
+    trigger: card,
+    start: 'top 90%',
+    onEnter: () => { setTimeout(() => card.classList.add('revealed'), i * 100); },
+    once: true
+  });
+});
+
+// ============================================================
+// D3 TREEMAP - POWER MAP
+// ============================================================
+(function() {
+  const container = document.getElementById('treemap-container');
+  const tooltip = document.getElementById('treemap-tooltip');
+  const w = container.offsetWidth;
+  const h = container.offsetHeight;
+
+  const data = {
+    name: 'Governing Documents', children: [
+      { name: 'Bylaws', children: [
+        { name: 'Art I\nPurpose', size: 2, summary: 'Defines the Association\'s purpose: manage common areas of Villages at Greenbriar.', color: '#5a9e7c', section: 'voter-section' },
+        { name: 'Art II\nMembership & Voting', size: 6, summary: 'One vote per lot. 1/3 quorum for business. NO quorum for elections. Proxies allowed.', color: '#3a7d5c', section: 'voter-section' },
+        { name: 'Art III\nMeetings', size: 5, summary: 'Annual meetings in Nov/Dec. 10-30 days notice. 9-item order of business. Special meetings within 30 days.', color: '#4a8d6c', section: 'meeting-section' },
+        { name: 'Art IV\nBoard of Directors', size: 12, summary: '3-7 directors with 19 enumerated powers. 2-year terms. Removal by 2/3 vote. Contract limits (1yr max, 30/90 day termination).', color: '#2d6148', section: 'board-section', key: true },
+        { name: 'Art V\nFiscal Mgmt', size: 4, summary: 'Calendar fiscal year. Dues due March 1st. Board can increase up to 10% alone.', color: '#4a8d6c', section: 'money-section' },
+        { name: 'Art VI\nOfficers', size: 4, summary: 'President, VP, Secretary, Treasurer, Maintenance Chair. Elected BY the Board.', color: '#5a9e7c', section: 'officers-section' },
+        { name: 'Art VII\nIndemnification', size: 3, summary: 'Directors/Officers indemnified against loss except for gross negligence. No personal liability on contracts.', color: '#6aae8c', section: 'shield-section' },
+        { name: 'Art VIII\nAmendments', size: 2, summary: 'Bylaws amended by 2/3 member vote plus a written instrument signed by the Board.', color: '#7abe9c', section: 'provisions-section' },
+        { name: 'Art IX\nOwnership', size: 2, summary: 'Proof of ownership required. Must register mailing address within 15 days of title transfer.', color: '#8aceac', section: 'voter-section' },
+        { name: 'Art X\nObligations', size: 3, summary: 'Owners must pay dues, comply with all rules. Must be current and in compliance to vote.', color: '#5a9e7c', section: 'voter-section' },
+        { name: 'Art XI\nEnforcement', size: 2, summary: 'Board can enter lots to abate violations. Can deny amenities for violations or nonpayment.', color: '#4a8d6c', section: 'provisions-section' },
+        { name: 'Art XII\nCommittees', size: 3, summary: '6 committees: Welcoming (3), Social (2), Newsletter (2), Maintenance, Architectural (5, board-chaired).', color: '#6aae8c', section: 'committees-section' },
+        { name: 'Art XIII\nCompensation', size: 5, summary: 'NO pecuniary profit allowed. Directors who authorize compensation are personally liable for reimbursement.', color: '#c9962e', section: 'compensation-section', key: true }
+      ]},
+      { name: 'CC&Rs', children: [
+        { name: 'CC&R 2.6\nAssessments', size: 4, summary: 'Special assessments require 2/3 owner assent + 10 days notice. Initial dues $250/yr.', color: '#2980b9', section: 'money-section' },
+        { name: 'CC&R 2.7\nRules & Fines', size: 3, summary: '5 days notice + hearing required before imposing fines. Due process mandated.', color: '#3498db', section: 'provisions-section' },
+        { name: 'CC&R 2.10\nNo Compensation', size: 5, summary: 'No lot owner or their business may receive credit or compensation for services as officer, director, or employee.', color: '#c9962e', section: 'compensation-section', key: true },
+        { name: 'CC&R 2.13\nArbitration', size: 2, summary: 'Mandatory arbitration for disputes between owners and the Association regarding covenant violations.', color: '#5dade2', section: 'provisions-section' }
+      ]}
+    ]
+  };
+
+  const root = d3.hierarchy(data).sum(d => d.size);
+  d3.treemap().size([w, h]).padding(2).round(true)(root);
+
+  root.leaves().forEach(d => {
+    const div = document.createElement('div');
+    div.className = 'treemap-cell' + (d.data.key ? ' key-highlight' : '');
+    div.style.left = d.x0 + 'px';
+    div.style.top = d.y0 + 'px';
+    div.style.width = (d.x1 - d.x0) + 'px';
+    div.style.height = (d.y1 - d.y0) + 'px';
+    div.style.background = d.data.color;
+    div.textContent = d.data.name.replace('\n', ' ');
+
+    div.addEventListener('mouseenter', (e) => {
+      tooltip.innerHTML = '<strong>' + d.data.name.replace('\n', ' ') + '</strong>' + d.data.summary;
+      tooltip.classList.add('show');
+    });
+    div.addEventListener('mousemove', (e) => {
+      tooltip.style.left = e.clientX + 12 + 'px';
+      tooltip.style.top = e.clientY - 40 + 'px';
+    });
+    div.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+    div.addEventListener('click', () => {
+      if (d.data.section) {
+        document.getElementById(d.data.section).scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+    container.appendChild(div);
+  });
+})();
+
+// ============================================================
+// D3 DECISION TREE - VOTER ELIGIBILITY
+// ============================================================
+(function() {
+  const svg = d3.select('#decision-tree-svg');
+  const width = 700, height = 380;
+  svg.attr('viewBox', `0 0 ${width} ${height}`);
+
+  // Arrow marker
+  svg.append('defs').append('marker')
+    .attr('id', 'dt-arrow')
+    .attr('viewBox', '0 0 10 10')
+    .attr('refX', 10).attr('refY', 5)
+    .attr('markerWidth', 6).attr('markerHeight', 6)
+    .attr('orient', 'auto')
+    .append('path').attr('d', 'M 0 0 L 10 5 L 0 10 Z').attr('fill', '#ccc');
+
+  const nodes = [
+    { id: 'own', label: 'Own a Lot?', x: 350, y: 40, w: 140, h: 44, color: '#3a7d5c' },
+    { id: 'dues', label: 'Dues Current?', x: 350, y: 140, w: 140, h: 44, color: '#3a7d5c' },
+    { id: 'violation', label: 'In Violation?', x: 350, y: 240, w: 140, h: 44, color: '#3a7d5c' },
+    { id: 'yes', label: 'YOU CAN VOTE', x: 350, y: 335, w: 150, h: 40, color: '#27ae60' },
+    { id: 'no1', label: 'NO VOTE', x: 120, y: 80, w: 110, h: 36, color: '#c0392b' },
+    { id: 'no2', label: 'NO VOTE', x: 120, y: 180, w: 110, h: 36, color: '#c0392b' },
+    { id: 'no3', label: 'NO VOTE', x: 580, y: 280, w: 110, h: 36, color: '#c0392b' }
+  ];
+
+  const edges = [
+    { from: 'own', to: 'dues', label: 'Yes', sx: 350, sy: 62, tx: 350, ty: 118 },
+    { from: 'own', to: 'no1', label: 'No', sx: 280, sy: 50, tx: 175, ty: 62 },
+    { from: 'dues', to: 'violation', label: 'Yes', sx: 350, sy: 162, tx: 350, ty: 218 },
+    { from: 'dues', to: 'no2', label: 'No', sx: 280, sy: 150, tx: 175, ty: 162 },
+    { from: 'violation', to: 'yes', label: 'No', sx: 350, sy: 262, tx: 350, ty: 315 },
+    { from: 'violation', to: 'no3', label: 'Yes', sx: 420, sy: 260, tx: 580, ty: 280 }
+  ];
+
+  edges.forEach(e => {
+    svg.append('line')
+      .attr('class', 'dt-edge')
+      .attr('x1', e.sx).attr('y1', e.sy)
+      .attr('x2', e.tx).attr('y2', e.ty)
+      .attr('marker-end', 'url(#dt-arrow)');
+    svg.append('text')
+      .attr('class', 'dt-edge-label')
+      .attr('x', (e.sx + e.tx) / 2 + (e.label === 'No' && e.from !== 'violation' ? -15 : e.label === 'Yes' && e.from === 'violation' ? 15 : 10))
+      .attr('y', (e.sy + e.ty) / 2 + (e.from === 'violation' && e.label === 'Yes' ? -5 : 0))
+      .text(e.label);
+  });
+
+  nodes.forEach(n => {
+    const g = svg.append('g').attr('class', 'dt-node');
+    g.append('rect')
+      .attr('x', n.x - n.w / 2).attr('y', n.y - n.h / 2)
+      .attr('width', n.w).attr('height', n.h)
+      .attr('fill', n.color);
+    g.append('text')
+      .attr('x', n.x).attr('y', n.y + 5)
+      .text(n.label);
+  });
+})();
+
+// ============================================================
+// D3 FORCE GRAPH - BOARD POWERS
+// ============================================================
+(function() {
+  const container = document.getElementById('force-graph-container');
+  const svg = d3.select('#force-graph-svg');
+  const tooltip = document.getElementById('force-tooltip');
+  const w = container.offsetWidth;
+  const h = container.offsetHeight || 500;
+  svg.attr('viewBox', `0 0 ${w} ${h}`);
+
+  const categories = {
+    admin: '#3a7d5c',
+    financial: '#e8a838',
+    enforcement: '#c0392b',
+    governance: '#2980b9'
+  };
+
+  const powers = [
+    { id: 'board', label: 'Board of\nDirectors', r: 36, color: '#1a1a1a', cat: 'center', fixed: true, fx: w/2, fy: h/2 },
+    { id: 'admin', label: 'Administer', r: 16, cat: 'admin', detail: 'Art IV-3a: Administer and enforce all covenants, conditions, restrictions, easements, uses, limitations, and obligations.' },
+    { id: 'rules', label: 'Rules &\nFines', r: 16, cat: 'enforcement', detail: 'Art IV-3b: Establish and enforce rules for operation, use, and occupancy of the project.' },
+    { id: 'maintenance', label: 'Maintain\nCommon', r: 16, cat: 'admin', detail: 'Art IV-3c: Keep in good order all common areas and common personal property.' },
+    { id: 'insurance', label: 'Insurance', r: 14, cat: 'admin', detail: 'Art IV-3d: Insure all common areas at max replacement value. Liability: $100K/$300K/$50K minimum.' },
+    { id: 'budget', label: 'Budget &\nAssess', r: 16, cat: 'financial', detail: 'Art IV-3e: Prepare annual budget. Levy and collect special assessments for increased expenses or emergencies.' },
+    { id: 'liens', label: 'Enforce\nLiens', r: 14, cat: 'enforcement', detail: 'Art IV-3f: Collect delinquent assessments by suit. Charge interest + attorney fees after 30 days.' },
+    { id: 'defend', label: 'Protect &\nDefend', r: 14, cat: 'enforcement', detail: 'Art IV-3g: Protect and defend the premises from loss and damage by suit or otherwise.' },
+    { id: 'borrow', label: 'Borrow\nFunds', r: 14, cat: 'financial', detail: 'Art IV-3h: Borrow funds for any authorized expenditure and execute all instruments of indebtedness.' },
+    { id: 'contracts', label: 'Contracts', r: 20, cat: 'governance', detail: 'Art IV-3r: Max 1-year contracts only. Terminable for cause (30 days) or without cause (90 days). No termination fee.', key: true },
+    { id: 'bank', label: 'Bank\nAccounts', r: 14, cat: 'financial', detail: 'Art IV-3j: Establish bank accounts for common treasury and all separate funds.' },
+    { id: 'manage', label: 'Manage\nImprovements', r: 14, cat: 'admin', detail: 'Art IV-3k: Make repairs, additions, alterations consistent with first-class management.' },
+    { id: 'books', label: 'Books &\nRecords', r: 17, cat: 'governance', detail: 'Art IV-3l: Keep full and accurate books. Permit examination by each owner and first mortgagee.' },
+    { id: 'statement', label: 'Annual\nStatement', r: 14, cat: 'financial', detail: 'Art IV-3m: Prepare and deliver annually to each owner a statement of receipts, expenses, disbursements.' },
+    { id: 'meetings', label: 'Meet\nQuarterly', r: 14, cat: 'governance', detail: 'Art IV-3n: Meet at least quarterly. May attend by telephone. Written consent in lieu of meeting.' },
+    { id: 'personnel', label: 'Personnel', r: 14, cat: 'admin', detail: 'Art IV-3o: Designate, employ, and dismiss maintenance and administration personnel.' },
+    { id: 'agent', label: 'Managing\nAgent', r: 14, cat: 'governance', detail: 'Art IV-3q: May employ a management agent with all powers granted to the Board.' },
+    { id: 'tax', label: 'Tax\nExempt', r: 12, cat: 'financial', detail: 'Art IV-3u: Determine each year the advisability of tax-exempt status election.' },
+    { id: 'nocomp', label: '$0 Pay', r: 20, cat: 'governance', detail: 'Art IV-13: No member of the Board shall receive any compensation. Reimbursement for expenses only.', key: true },
+    { id: 'allthings', label: 'All Things\nNecessary', r: 14, cat: 'admin', detail: 'Art IV-3t: Do all things necessary and proper for sound and efficient management.' }
+  ];
+
+  const links = powers.filter(p => p.id !== 'board').map(p => ({ source: 'board', target: p.id }));
+
+  const simulation = d3.forceSimulation(powers)
+    .force('link', d3.forceLink(links).id(d => d.id).distance(d => 140))
+    .force('charge', d3.forceManyBody().strength(-200))
+    .force('center', d3.forceCenter(w / 2, h / 2))
+    .force('collision', d3.forceCollide().radius(d => d.r + 8));
+
+  // Arrow marker
+  svg.append('defs').append('marker')
+    .attr('id', 'force-arrow')
+    .attr('viewBox', '0 0 10 10')
+    .attr('refX', 20).attr('refY', 5)
+    .attr('markerWidth', 4).attr('markerHeight', 4)
+    .attr('orient', 'auto')
+    .append('path').attr('d', 'M 0 0 L 10 5 L 0 10 Z').attr('fill', '#ddd');
+
+  const linkEls = svg.selectAll('.force-link')
+    .data(links).join('line')
+    .attr('class', 'force-link')
+    .attr('stroke', '#ddd').attr('stroke-width', 1.5);
+
+  const nodeGs = svg.selectAll('.force-node')
+    .data(powers).join('g')
+    .attr('class', 'force-node')
+    .style('cursor', 'pointer');
+
+  // Key provision rings
+  nodeGs.filter(d => d.important).append('circle')
+    .attr('r', d => d.r + 5)
+    .attr('fill', 'none')
+    .attr('stroke', '#e8a838')
+    .attr('stroke-width', 2)
+    .style('animation', 'key-pulse 2.5s ease-in-out infinite');
+
+  nodeGs.append('circle')
+    .attr('r', d => d.r)
+    .attr('fill', d => d.id === 'board' ? d.color : (categories[d.cat] || '#888'))
+    .attr('opacity', d => d.id === 'board' ? 1 : 0.85);
+
+  nodeGs.each(function(d) {
+    const g = d3.select(this);
+    const lines = d.label.split('\n');
+    lines.forEach((line, i) => {
+      g.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dy', (i - (lines.length - 1) / 2) * 12 + 4)
+        .attr('fill', '#fff')
+        .attr('font-size', d.id === 'board' ? '11px' : '9px')
+        .attr('font-weight', '600')
+        .attr('pointer-events', 'none')
+        .text(line);
+    });
+  });
+
+  nodeGs.filter(d => d.detail).on('mouseenter', function(event, d) {
+    tooltip.textContent = d.detail;
+    tooltip.classList.add('show');
+    tooltip.style.left = event.clientX + 12 + 'px';
+    tooltip.style.top = event.clientY - 40 + 'px';
+  }).on('mousemove', function(event) {
+    tooltip.style.left = event.clientX + 12 + 'px';
+    tooltip.style.top = event.clientY - 40 + 'px';
+  }).on('mouseleave', () => tooltip.classList.remove('show'));
+
+  simulation.on('tick', () => {
+    linkEls.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+      .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+    nodeGs.attr('transform', d => `translate(${d.x},${d.y})`);
+  });
+
+  // Terms flow
+  const tfSvg = d3.select('#terms-flow-svg');
+  const tfW = 700, tfH = 120;
+  tfSvg.attr('viewBox', `0 0 ${tfW} ${tfH}`);
+
+  tfSvg.append('defs').append('marker')
+    .attr('id', 'tf-arrow')
+    .attr('viewBox', '0 0 10 10')
+    .attr('refX', 10).attr('refY', 5)
+    .attr('markerWidth', 6).attr('markerHeight', 6)
+    .attr('orient', 'auto')
+    .append('path').attr('d', 'M 0 0 L 10 5 L 0 10 Z').attr('fill', '#3a7d5c');
+
+  const tfNodes = [
+    { label: 'Elected at\nAnnual Meeting', x: 60 },
+    { label: 'Serve\n2-Year Term', x: 230 },
+    { label: 'Hold Until\nSuccessor', x: 400 },
+    { label: 'Removal:\n2/3 Member Vote', x: 580, red: true }
+  ];
+
+  const nodeW = 130, nodeH = 50;
+  tfNodes.forEach((n, i) => {
+    const g = tfSvg.append('g').attr('class', 'flow-node');
+    g.append('rect')
+      .attr('x', n.x - nodeW/2).attr('y', tfH/2 - nodeH/2)
+      .attr('width', nodeW).attr('height', nodeH)
+      .attr('rx', 8)
+      .style('stroke', n.red ? '#c0392b' : '#3a7d5c');
+    const lines = n.label.split('\n');
+    lines.forEach((line, li) => {
+      g.append('text')
+        .attr('x', n.x)
+        .attr('y', tfH/2 + (li - (lines.length-1)/2) * 14)
+        .attr('dominant-baseline', 'middle')
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '11px')
+        .attr('fill', n.red ? '#c0392b' : '#1a1a1a')
+        .text(line);
+    });
+    if (i < tfNodes.length - 1) {
+      tfSvg.append('line')
+        .attr('class', 'flow-arrow')
+        .attr('x1', n.x + nodeW/2 + 4).attr('y1', tfH/2)
+        .attr('x2', tfNodes[i+1].x - nodeW/2 - 4).attr('y2', tfH/2)
+        .attr('marker-end', 'url(#tf-arrow)');
+    }
+  });
+})();
+
+// ============================================================
+// D3 OFFICERS CIRCLE LAYOUT
+// ============================================================
+(function() {
+  const svg = d3.select('#officers-svg');
+  const card = document.getElementById('officer-card');
+  const width = 500, height = 420;
+  svg.attr('viewBox', `0 0 ${width} ${height}`);
+
+  const officers = [
+    { label: 'President', desc: 'Chief executive officer. Presides at all meetings. Appoints committees. Signs all contracts and documents.' },
+    { label: 'Vice\nPresident', desc: 'All powers of the President in the President\'s absence. Performs duties as directed by the President.' },
+    { label: 'Secretary', desc: 'Keeps all minutes. Maintains member list with addresses. Has charge of books and papers. Sends notices.' },
+    { label: 'Treasurer', desc: 'Responsible for all Association funds. Keeps full and accurate accounts. Deposits all monies. Reviews managing agent accounts monthly.' },
+    { label: 'Maintenance\nChair', desc: 'Day-to-day maintenance planning and performance. Estimates future replacement needs. Reports to Board 60 days before budget.' }
+  ];
+
+  const cx = width / 2, cy = height / 2 - 10;
+  const radius = 140;
+
+  // Center label
+  svg.append('text')
+    .attr('x', cx).attr('y', cy + 5)
+    .attr('text-anchor', 'middle')
+    .attr('fill', '#ccc')
+    .attr('font-size', '13px')
+    .text('Elected by Board');
+
+  officers.forEach((off, i) => {
+    const angle = -Math.PI / 2 + (i / officers.length) * Math.PI * 2;
+    const x = cx + Math.cos(angle) * radius;
+    const y = cy + Math.sin(angle) * radius;
+
+    // Connection line
+    svg.append('line')
+      .attr('x1', cx).attr('y1', cy)
+      .attr('x2', x).attr('y2', y)
+      .attr('stroke', '#e0e0e0').attr('stroke-width', 2);
+
+    const g = svg.append('g').style('cursor', 'pointer');
+
+    g.append('circle')
+      .attr('cx', x).attr('cy', y)
+      .attr('r', 42)
+      .attr('fill', '#f0f7f4')
+      .attr('stroke', '#3a7d5c')
+      .attr('stroke-width', 3);
+
+    const lines = off.label.split('\n');
+    lines.forEach((line, li) => {
+      g.append('text')
+        .attr('x', x).attr('y', y + (li - (lines.length-1)/2) * 13 + 4)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '11px')
+        .attr('font-weight', '600')
+        .attr('fill', '#3a7d5c')
+        .text(line);
+    });
+
+    g.on('mouseenter', function(event) {
+      d3.select(this).select('circle')
+        .transition().duration(200)
+        .attr('r', 50).attr('fill', '#e0f2e9');
+      card.innerHTML = '<h4>' + off.label.replace('\n', ' ') + '</h4><p>' + off.desc + '</p>';
+      card.classList.add('show');
+      const parentRect = svg.node().parentElement.getBoundingClientRect();
+      card.style.left = (x - 130) + 'px';
+      card.style.top = (y + 60) + 'px';
+    });
+
+    g.on('mouseleave', function() {
+      d3.select(this).select('circle')
+        .transition().duration(200)
+        .attr('r', 42).attr('fill', '#f0f7f4');
+      card.classList.remove('show');
+    });
+  });
+})();
+
+// ============================================================
+// D3 STACKED BAR - FISCAL MANAGEMENT
+// ============================================================
+(function() {
+  const svg = d3.select('#bar-chart-svg');
+  const width = 700, height = 300;
+  const margin = { top: 30, right: 20, bottom: 50, left: 60 };
+  const iw = width - margin.left - margin.right;
+  const ih = height - margin.top - margin.bottom;
+
+  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+  const baseDues = 250;
+  const categories = [
+    { name: 'Current Expenses', color: '#3a7d5c', pct: 0.45 },
+    { name: 'Deferred Maint.', color: '#5a9e7c', pct: 0.20 },
+    { name: 'Replacement Reserves', color: '#7abe9c', pct: 0.20 },
+    { name: 'Capital Improvements', color: '#a0d4b4', pct: 0.15 }
+  ];
+
+  const x = d3.scaleBand().domain(categories.map(c => c.name)).range([0, iw]).padding(0.35);
+  const y = d3.scaleLinear().domain([0, 350]).range([ih, 0]);
+
+  // Axes
+  g.append('g').attr('transform', `translate(0,${ih})`)
+    .call(d3.axisBottom(x))
+    .selectAll('text')
+    .attr('font-size', '10px')
+    .attr('transform', 'rotate(-15)')
+    .attr('text-anchor', 'end');
+
+  g.append('g').call(d3.axisLeft(y).ticks(5).tickFormat(d => '$' + d));
+
+  // Threshold line at 10%
+  const thresholdLine = g.append('line')
+    .attr('x1', 0).attr('x2', iw)
+    .attr('y1', y(baseDues * 1.1)).attr('y2', y(baseDues * 1.1))
+    .attr('stroke', '#e8a838')
+    .attr('stroke-width', 2)
+    .attr('stroke-dasharray', '6,4');
+
+  g.append('text')
+    .attr('x', iw - 5).attr('y', y(baseDues * 1.1) - 6)
+    .attr('text-anchor', 'end')
+    .attr('fill', '#e8a838')
+    .attr('font-size', '10px')
+    .attr('font-weight', '600')
+    .text('10% threshold');
+
+  // Bars
+  const bars = g.selectAll('.bar')
+    .data(categories).join('rect')
+    .attr('class', 'bar')
+    .attr('x', d => x(d.name))
+    .attr('y', d => y(baseDues * d.pct))
+    .attr('width', x.bandwidth())
+    .attr('height', d => ih - y(baseDues * d.pct))
+    .attr('fill', d => d.color)
+    .attr('rx', 4);
+
+  // Value labels
+  const labels = g.selectAll('.bar-label')
+    .data(categories).join('text')
+    .attr('class', 'bar-label')
+    .attr('x', d => x(d.name) + x.bandwidth() / 2)
+    .attr('y', d => y(baseDues * d.pct) - 6)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '11px')
+    .attr('font-weight', '600')
+    .attr('fill', '#555')
+    .text(d => '$' + Math.round(baseDues * d.pct));
+
+  // Slider
+  const slider = document.getElementById('dues-slider');
+  const pctEl = document.getElementById('dues-pct');
+  const thresholdLabel = document.getElementById('threshold-label');
+
+  slider.addEventListener('input', () => {
+    const pct = parseInt(slider.value);
+    pctEl.textContent = pct;
+    const newDues = baseDues * (1 + pct / 100);
+
+    y.domain([0, Math.max(350, newDues * 1.1)]);
+    g.select('g:nth-child(2)').call(d3.axisLeft(y).ticks(5).tickFormat(d => '$' + d));
+
+    bars.transition().duration(200)
+      .attr('y', d => y(newDues * d.pct))
+      .attr('height', d => ih - y(newDues * d.pct))
+      .attr('fill', d => pct > 10 ? '#c0392b' : d.color);
+
+    labels.transition().duration(200)
+      .attr('y', d => y(newDues * d.pct) - 6)
+      .text(d => '$' + Math.round(newDues * d.pct));
+
+    thresholdLine.transition().duration(200)
+      .attr('y1', y(baseDues * 1.1)).attr('y2', y(baseDues * 1.1));
+
+    if (pct === 0) {
+      thresholdLabel.textContent = 'Current: No increase';
+      thresholdLabel.style.color = 'var(--muted)';
+    } else if (pct <= 10) {
+      thresholdLabel.textContent = pct + '% increase \u2014 Board can approve alone';
+      thresholdLabel.style.color = 'var(--accent-green)';
+    } else {
+      thresholdLabel.textContent = pct + '% increase \u2014 Requires member vote (Art. V-2)';
+      thresholdLabel.style.color = 'var(--accent-red)';
+    }
+  });
+})();
+
+// ============================================================
+// KEY PROVISIONS FLIP CARDS
+// ============================================================
+(function() {
+  const grid = document.getElementById('flip-grid');
+
+  const provisions = [
+    {
+      icon: '\u{1F6AB}', title: 'No Compensation', ref: 'Art. XIII + CC&R 2.10',
+      oversized: true, amber: true,
+      legal: '"No member of the Board of Directors shall receive any compensation for acting as such." \u2014 Art. XIII. "No Lot Owner or any business in which a Lot Owner has an interest may receive a credit or compensation, directly or indirectly, for services rendered as an officer, director or employee." \u2014 CC&R 2.10',
+      explain: 'Two independent provisions prohibit director pay. Directors may only be reimbursed for actual expenses (postage, supplies, etc.). If compensation is received, the Association is entitled to pursue reimbursement from the member and the directors who authorized it.',
+      note: 'This is one of the strongest protections in the bylaws. It ensures that serving on the board is a volunteer role, not a paid position.'
+    },
+    {
+      icon: '\u{1F4DD}', title: 'Contract Limits', ref: 'Art. IV-3r',
+      oversized: true, amber: true,
+      legal: '"The Association shall not enter into any contract or management agreement... the terms of which is in excess of one year... any contract or management agreement... shall be terminable by the Association for cause upon thirty (30) days written notice or without cause... upon ninety (90) days written notice."',
+      explain: 'No contract can exceed one year. Any contract can be terminated \u2014 for cause with 30 days notice, without cause with 90 days notice. No termination fee can be required.',
+      note: 'This prevents the board from locking the HOA into long-term agreements that future boards can\'t get out of.'
+    },
+    {
+      icon: '\u{1F5F3}', title: 'Director Removal', ref: 'Art. IV-7',
+      legal: '"Any one or more of the Directors may be removed with or without cause by a vote of two-thirds (2/3) of the members entitled to vote."',
+      explain: 'Directors can be removed mid-term by a 2/3 vote of all owners (28 of 42). This is separate from elections \u2014 at the annual meeting, new directors are simply elected by plurality (most votes wins). Automatic removal also applies if a director misses 3 consecutive board meetings.',
+      note: 'Elections and removal are two different tools. Elections happen annually and require only the most votes. Removal requires a supermajority and is designed for mid-term situations.'
+    },
+    {
+      icon: '\u{1F4DA}', title: 'Books & Records', ref: 'Art. IV-3l',
+      legal: '"To keep and maintain full and accurate books and records showing all of the receipts, expenses or disbursements and to permit examination thereof by each of the owners."',
+      explain: 'Every owner has the right to examine all financial records. The Board must keep complete books and have them reviewed annually by a qualified person.',
+      note: 'Transparency is a requirement, not a courtesy. If you want to see the HOA\'s financial records, you are entitled to inspect them.'
+    },
+    {
+      icon: '\u{1F4B0}', title: 'Special Assessments', ref: 'CC&R 2.6C',
+      legal: '"Any such special assessment shall have the assent of 2/3rds of the Owners, voting in person or by proxy, at a meeting duly called for this purpose. Written notice... at least ten (10) days in advance."',
+      explain: 'The Board cannot unilaterally levy special assessments for capital improvements. It requires a 2/3 supermajority of owners voting at a properly noticed meeting.',
+      note: 'Your dues can\'t be suddenly increased for a big project without the community voting on it first.'
+    },
+    {
+      icon: '\u{2696}', title: 'Rules & Fines', ref: 'CC&R 2.7',
+      legal: '"Written notice of any proposed adoption... shall provide at least five days notice of the meeting... and afford any Owner the opportunity to be heard."',
+      explain: 'No fine can be imposed without due process: 5 days written notice for new rules, 10 days notice plus a hearing before any fine. Both sides may present evidence and witnesses.',
+      note: 'You have a right to be heard before being fined. A fine imposed without proper notice and a hearing is not valid.'
+    },
+    {
+      icon: '\u{270F}', title: 'Amendment', ref: 'Art. VIII',
+      legal: '"These Bylaws may be amended by the Association... No amendment... shall be effective unless approved by a 2/3rds vote of the members and memorialized in a writing signed by the Board of Directors."',
+      explain: 'Changing the bylaws requires both a 2/3 supermajority vote AND a signed written instrument from the Board. CC&Rs require 80% for amendment. Neither can be changed by the Board alone.',
+      note: 'The governing documents protect all owners equally. No single person or small group can rewrite the rules.'
+    },
+    {
+      icon: '\u{1F91D}', title: 'Mandatory Arbitration', ref: 'CC&R 2.13',
+      legal: '"Any Owner, by acceptance of a deed to a Lot... does hereby agree to mandatory Arbitration of any dispute between that Owner and the Association or any other Owner the subject of which is the violation or non-compliance with the terms of these Covenants or Bylaws."',
+      explain: 'Disputes about covenant violations go to arbitration rather than court. This applies to every owner who accepted a deed in the subdivision.',
+      note: 'Arbitration is generally faster and less expensive than a lawsuit. The CC&Rs reference procedures in the bylaws, though those procedures have not been formally adopted.'
+    }
+  ];
+
+  provisions.forEach((w, i) => {
+    const card = document.createElement('div');
+    card.className = 'flip-card ' + (w.oversized ? 'oversized ' : '') + (i % 2 === 0 ? 'from-left' : 'from-right');
+
+    card.innerHTML = `
+      <div class="flip-inner">
+        <div class="flip-front ${w.amber ? 'amber-bg key-highlight' : ''}">
+          <div class="card-icon">${w.icon}</div>
+          <h3>${w.title}</h3>
+          <div class="card-ref">${w.ref}</div>
+        </div>
+        <div class="flip-back">
+          <h4>Exact Language</h4>
+          <div class="legal-text">${w.legal}</div>
+          <p style="margin-bottom:0.5rem;">${w.explain}</p>
+          <div class="provision-note">${w.note}</div>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+
+    ScrollTrigger.create({
+      trigger: card,
+      start: 'top 90%',
+      onEnter: () => { setTimeout(() => card.classList.add('revealed'), i * 120); },
+      once: true
+    });
+
+    grid.appendChild(card);
+  });
+})();
+
+// ============================================================
+// COMPENSATION VIOLATION FLOWS
+// ============================================================
+(function() {
+  // Violation flow
+  const vSvg = d3.select('#violation-flow-svg');
+  vSvg.attr('viewBox', '0 0 300 200');
+
+  vSvg.append('defs').append('marker')
+    .attr('id', 'v-arrow')
+    .attr('viewBox', '0 0 10 10')
+    .attr('refX', 10).attr('refY', 5)
+    .attr('markerWidth', 6).attr('markerHeight', 6)
+    .attr('orient', 'auto')
+    .append('path').attr('d', 'M 0 0 L 10 5 L 0 10 Z').attr('fill', '#c0392b');
+
+  const vNodes = [
+    { label: 'Lot Owner', x: 150, y: 30, w: 100, h: 34 },
+    { label: 'Consulting\nAgreement', x: 150, y: 100, w: 110, h: 40 },
+    { label: 'Compensation', x: 150, y: 170, w: 120, h: 34 }
+  ];
+
+  vNodes.forEach((n, i) => {
+    const g = vSvg.append('g');
+    g.append('rect')
+      .attr('x', n.x - n.w/2).attr('y', n.y - n.h/2)
+      .attr('width', n.w).attr('height', n.h)
+      .attr('rx', 8)
+      .attr('fill', '#fff5f5').attr('stroke', '#c0392b').attr('stroke-width', 2);
+    const lines = n.label.split('\n');
+    lines.forEach((line, li) => {
+      g.append('text')
+        .attr('x', n.x).attr('y', n.y + (li - (lines.length-1)/2) * 13 + 4)
+        .attr('text-anchor', 'middle').attr('font-size', '11px').attr('fill', '#c0392b')
+        .text(line);
+    });
+    if (i < vNodes.length - 1) {
+      vSvg.append('line')
+        .attr('x1', n.x).attr('y1', n.y + n.h/2 + 2)
+        .attr('x2', vNodes[i+1].x).attr('y2', vNodes[i+1].y - vNodes[i+1].h/2 - 2)
+        .attr('stroke', '#c0392b').attr('stroke-width', 2)
+        .attr('marker-end', 'url(#v-arrow)');
+    }
+  });
+
+  // Red X
+  vSvg.append('text')
+    .attr('x', 150).attr('y', 110)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '60px')
+    .attr('fill', 'rgba(192,57,43,0.15)')
+    .attr('font-weight', '900')
+    .text('\u2716');
+
+  // Remedy flow
+  const rSvg = d3.select('#remedy-flow-svg');
+  rSvg.attr('viewBox', '0 0 300 200');
+
+  rSvg.append('defs').append('marker')
+    .attr('id', 'r-arrow')
+    .attr('viewBox', '0 0 10 10')
+    .attr('refX', 10).attr('refY', 5)
+    .attr('markerWidth', 6).attr('markerHeight', 6)
+    .attr('orient', 'auto')
+    .append('path').attr('d', 'M 0 0 L 10 5 L 0 10 Z').attr('fill', '#3a7d5c');
+
+  const rNodes = [
+    { label: 'New Board\nElected', x: 75, y: 40, w: 100, h: 40 },
+    { label: 'Terminate\nContract (90d)', x: 225, y: 40, w: 110, h: 40 },
+    { label: 'Demand\nReimbursement', x: 75, y: 150, w: 110, h: 40 },
+    { label: 'Pursue\nAuth. Directors', x: 225, y: 150, w: 110, h: 40 }
+  ];
+
+  rNodes.forEach((n, i) => {
+    const g = rSvg.append('g');
+    g.append('rect')
+      .attr('x', n.x - n.w/2).attr('y', n.y - n.h/2)
+      .attr('width', n.w).attr('height', n.h)
+      .attr('rx', 8)
+      .attr('fill', '#f0f7f4').attr('stroke', '#3a7d5c').attr('stroke-width', 2);
+    const lines = n.label.split('\n');
+    lines.forEach((line, li) => {
+      g.append('text')
+        .attr('x', n.x).attr('y', n.y + (li - (lines.length-1)/2) * 13 + 4)
+        .attr('text-anchor', 'middle').attr('font-size', '10px').attr('fill', '#3a7d5c').attr('font-weight', '600')
+        .text(line);
+    });
+  });
+
+  // Arrows: 0->1, 1->2 (down-left), 2->3
+  const rEdges = [
+    { sx: 125, sy: 40, tx: 170, ty: 40 },
+    { sx: 225, sy: 60, tx: 75, ty: 130 },
+    { sx: 130, sy: 150, tx: 170, ty: 150 }
+  ];
+  rEdges.forEach(e => {
+    rSvg.append('line')
+      .attr('x1', e.sx).attr('y1', e.sy)
+      .attr('x2', e.tx).attr('y2', e.ty)
+      .attr('stroke', '#3a7d5c').attr('stroke-width', 2)
+      .attr('marker-end', 'url(#r-arrow)');
+  });
+})();
+
+// ============================================================
+// MEETING MECHANICS CARDS
+// ============================================================
+(function() {
+  const track = document.getElementById('meeting-track');
+
+  const items = [
+    { num: '01', title: 'Roll Call & Proxies', desc: 'Establish who is present and file all proxy votes with the Secretary.' },
+    { num: '02', title: 'Proof of Notice', desc: 'Confirm proper notice (10-30 days, first class mail) was sent to all owners.' },
+    { num: '03', title: 'Minutes', desc: 'Read and approve (or correct) the minutes from the last meeting.' },
+    { num: '04', title: 'Officer Reports', desc: 'President, Treasurer, Secretary each report on their areas of responsibility.' },
+    { num: '05', title: 'Committee Reports', desc: 'Standing and ad hoc committees report findings and recommendations.' },
+    { num: '06', title: 'Election of Directors', desc: 'Nominations from the floor. One vote per lot. Plurality wins. No quorum required.', highlight: true },
+    { num: '07', title: 'Unfinished Business', desc: 'Address any items carried over from previous meetings.' },
+    { num: '08', title: 'New Business', desc: 'Introduce and discuss any new matters brought by owners or the Board.' },
+    { num: '09', title: 'Adjournment', desc: 'Motion to adjourn. Meeting is officially closed.' }
+  ];
+
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'meeting-card' + (item.highlight ? ' key-highlight' : '');
+    card.innerHTML = `
+      <div class="card-number">${item.num}</div>
+      <h4>${item.title}</h4>
+      <p>${item.desc}</p>
+    `;
+    track.appendChild(card);
+  });
+
+  document.getElementById('meeting-prev').addEventListener('click', () => {
+    track.scrollBy({ left: -260, behavior: 'smooth' });
+  });
+  document.getElementById('meeting-next').addEventListener('click', () => {
+    track.scrollBy({ left: 260, behavior: 'smooth' });
+  });
+
+  // Special meetings flow
+  const smSvg = d3.select('#special-meeting-svg');
+  const smW = 700, smH = 120;
+  smSvg.attr('viewBox', `0 0 ${smW} ${smH}`);
+
+  smSvg.append('defs').append('marker')
+    .attr('id', 'sm-arrow')
+    .attr('viewBox', '0 0 10 10')
+    .attr('refX', 10).attr('refY', 5)
+    .attr('markerWidth', 6).attr('markerHeight', 6)
+    .attr('orient', 'auto')
+    .append('path').attr('d', 'M 0 0 L 10 5 L 0 10 Z').attr('fill', '#3a7d5c');
+
+  const smNodes = [
+    { label: 'Majority\nPetition' },
+    { label: 'Filed with\nSecretary' },
+    { label: 'Within\n30 Days' },
+    { label: 'Meeting\nCalled' }
+  ];
+
+  const smNodeW = 120, smNodeH = 50;
+  const smStartX = 50;
+  const smGap = (smW - smStartX * 2 - smNodeW * smNodes.length) / (smNodes.length - 1);
+
+  smNodes.forEach((n, i) => {
+    const x = smStartX + i * (smNodeW + smGap);
+    const g = smSvg.append('g').attr('class', 'flow-node');
+    g.append('rect')
+      .attr('x', x).attr('y', smH/2 - smNodeH/2)
+      .attr('width', smNodeW).attr('height', smNodeH);
+    const lines = n.label.split('\n');
+    lines.forEach((line, li) => {
+      g.append('text')
+        .attr('x', x + smNodeW/2)
+        .attr('y', smH/2 + (li - (lines.length-1)/2) * 14)
+        .attr('dominant-baseline', 'middle')
+        .text(line);
+    });
+    if (i < smNodes.length - 1) {
+      smSvg.append('line')
+        .attr('class', 'flow-arrow')
+        .attr('x1', x + smNodeW + 4).attr('y1', smH/2)
+        .attr('x2', smStartX + (i+1) * (smNodeW + smGap) - 4).attr('y2', smH/2)
+        .attr('marker-end', 'url(#sm-arrow)');
+    }
+  });
+})();
+
+// ============================================================
+// D3 COMMITTEE TREE
+// ============================================================
+(function() {
+  const svg = d3.select('#committee-tree-svg');
+  const tooltip = document.getElementById('committee-tooltip');
+  const width = 800, height = 380;
+  svg.attr('viewBox', `0 0 ${width} ${height}`);
+
+  const data = {
+    name: 'Board of Directors',
+    purpose: 'Governs the Association. May appoint standing or ad hoc committees.',
+    count: '3-7 members',
+    children: [
+      { name: 'Welcoming', count: '3+ members', purpose: 'Assist new residents in settling in. Provide brochure, directory, shopping guide, school info.' },
+      { name: 'Social', count: '2+ members', purpose: 'Plan programs to make best use of facilities and amenities. Develop ongoing interaction and involvement.' },
+      { name: 'Newsletter', count: '2+ members', purpose: 'Provide residents with info on new residents, association functions, development progress, rule changes.' },
+      { name: 'Maintenance', count: 'Proportional', purpose: 'Day-to-day maintenance planning. Estimate future replacement needs. Report to Board 60 days before budget.', highlight: false },
+      { name: 'Architectural', count: '5+ members', purpose: 'Approve or deny requests for changes, additions, or alterations to any structure on a Lot. Chaired by a Board member.', highlight: true },
+      { name: 'Executive', count: 'As needed', purpose: 'Optional committee. Board may delegate responsibility and establish conduct rules.' }
+    ]
+  };
+
+  const rootX = width / 2, rootY = 50;
+  const childY = 260;
+  const childSpacing = width / (data.children.length + 1);
+
+  // Root node
+  const rootG = svg.append('g').style('cursor', 'pointer');
+  rootG.append('rect')
+    .attr('x', rootX - 75).attr('y', rootY - 22)
+    .attr('width', 150).attr('height', 44)
+    .attr('rx', 10)
+    .attr('fill', '#1a1a1a');
+  rootG.append('text')
+    .attr('x', rootX).attr('y', rootY + 1)
+    .attr('text-anchor', 'middle')
+    .attr('fill', '#fff').attr('font-size', '12px').attr('font-weight', '600')
+    .text('Board of Directors');
+  rootG.append('text')
+    .attr('x', rootX).attr('y', rootY + 15)
+    .attr('text-anchor', 'middle')
+    .attr('fill', '#aaa').attr('font-size', '9px')
+    .text(data.count);
+
+  data.children.forEach((child, i) => {
+    const cx = childSpacing * (i + 1);
+
+    // Line from root
+    svg.append('line')
+      .attr('x1', rootX).attr('y1', rootY + 22)
+      .attr('x2', cx).attr('y2', childY - 30)
+      .attr('stroke', '#ddd').attr('stroke-width', 1.5);
+
+    const cg = svg.append('g').style('cursor', 'pointer');
+
+    cg.append('circle')
+      .attr('cx', cx).attr('cy', childY)
+      .attr('r', 28)
+      .attr('fill', child.highlight ? '#fff8e1' : '#f0f7f4')
+      .attr('stroke', child.highlight ? '#e8a838' : '#3a7d5c')
+      .attr('stroke-width', child.highlight ? 2.5 : 2);
+
+    cg.append('text')
+      .attr('x', cx).attr('y', childY + 4)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '9px').attr('font-weight', '600')
+      .attr('fill', child.highlight ? '#c9962e' : '#3a7d5c')
+      .text(child.name);
+
+    // Count below
+    cg.append('text')
+      .attr('x', cx).attr('y', childY + 50)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '9px')
+      .attr('fill', '#999')
+      .text(child.count);
+
+    cg.on('mouseenter', function(event) {
+      tooltip.innerHTML = '<strong>' + child.name + ' Committee</strong><br>' + child.purpose;
+      tooltip.classList.add('show');
+      tooltip.style.left = event.clientX + 12 + 'px';
+      tooltip.style.top = event.clientY - 50 + 'px';
+    }).on('mousemove', function(event) {
+      tooltip.style.left = event.clientX + 12 + 'px';
+      tooltip.style.top = event.clientY - 50 + 'px';
+    }).on('mouseleave', () => tooltip.classList.remove('show'));
+  });
+})();
+
+// Fix hash navigation from external links, wait for D3/Three.js to render
+if (window.location.hash) {
+  setTimeout(function() {
+    var el = document.querySelector(window.location.hash);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, 600);
+}
+</script>
+</body>
+</html>

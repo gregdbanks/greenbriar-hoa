@@ -1,0 +1,10 @@
+# Private directories — not part of the public site
+plan/
+legal/
+evidence/
+source-docs/
+site/
+CLAUDE.md
+COMMAND-CENTER.html
+
+.DS_Store
